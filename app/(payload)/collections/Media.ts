@@ -1,13 +1,32 @@
-// collections/Media.ts
-import { CollectionConfig } from "payload";
+import { CollectionConfig } from 'payload';
 
 export const Media: CollectionConfig = {
-  slug: "media",
+  slug: 'media',
   upload: {
-    staticDir: "media",
-    mimeTypes: ["image/*"],
+    staticDir: 'media',
+    mimeTypes: ['image/*'],
+    imageSizes: [
+      {
+        name: 'thumbnail',
+        width: 400,
+        height: 300,
+        position: 'center',
+      },
+      {
+        name: 'card',
+        width: 768,
+        height: 1024,
+        position: 'center',
+      },
+    ],
+    adminThumbnail: 'thumbnail',
   },
   fields: [
-    // You can add additional fields here if needed
+    {
+      name: 'alt',
+      type: 'text',
+      label: 'Alternative Text',
+      required: true,
+    },
   ],
 };

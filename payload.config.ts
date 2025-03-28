@@ -10,7 +10,7 @@ import { Media } from './app/(payload)/collections/Media'
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
-  
+  serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000',
 
   // Define and configure your collections in this array
   collections: [
