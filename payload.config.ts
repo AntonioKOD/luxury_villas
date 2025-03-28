@@ -6,6 +6,7 @@ import { Accounts } from './app/(payload)/collections/Accounts'
 import { Properties } from './app/(payload)/collections/Properties'
 import { Bookings } from './app/(payload)/collections/Bookings'
 import { Media } from './app/(payload)/collections/Media'
+import {vercelBlobStorage} from '@payloadcms/storage-vercel-blob'
 
 
 export default buildConfig({
@@ -18,6 +19,15 @@ export default buildConfig({
     Properties,
     Bookings,
     Media
+  ],
+  plugins: [
+    vercelBlobStorage({
+      enabled: true,
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+      collections: {
+        [Media.slug]: true,
+      }
+    })
   ],
   editor: lexicalEditor({}),
 

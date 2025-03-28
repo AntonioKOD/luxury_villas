@@ -11,7 +11,10 @@ const nextConfig: NextConfig = {
       domain: 'i.imgur.com',
       
     }
-  ]
+  ],
+  images: {
+    domains: ['localhost']
+  }
 };
 
 export default withPayload(nextConfig);

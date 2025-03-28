@@ -13,6 +13,7 @@
     "@payloadcms/db-mongodb": "^3.30.0",
     "@payloadcms/next": "^3.30.0",
     "@payloadcms/richtext-lexical": "^3.31.0",
+    "@payloadcms/storage-vercel-blob": "^3.31.0",
     "@prisma/client": "^6.5.0",
     "@radix-ui/react-slot": "^1.1.2",
     "@stripe/react-stripe-js": "^3.5.1",
