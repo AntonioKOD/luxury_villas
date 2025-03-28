@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import Navbar from "@/components/navbar";
+import { Bodoni_Moda } from 'next/font/google';
 import "./globals.css";
+import Footer from "@/components/footer";
+
+const bodoni = Bodoni_Moda({
+  subsets: ['latin'],
+  weight: ['400', '700'], // Specify desired weights
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${bodoni.className} antialiased`}
       >
+        <Navbar />
         {children}
+        <Footer/>
       </body>
     </html>
   );
