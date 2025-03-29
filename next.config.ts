@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     }
   ],
   images: {
-    domains: ['localhost']
+    domains: ['localhost', 'https://luxury-villas-two.vercel.app']
   }
 };
 
