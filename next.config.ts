@@ -13,7 +13,14 @@ const nextConfig: NextConfig = {
     }
   ],
   images: {
-    domains: ['localhost', 'luxury-villas-two.vercel.app']
+    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'luxury-villas-two.vercel.app',
+        pathname: '/**',
+      },
+    ],
   }
 };
 
