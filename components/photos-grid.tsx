@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
 import { LayoutGrid } from './ui/layout-grid'
-import firstImage from '@/media/A7A05518.jpg'
-import secondImage from '@/media/DJI_20240706153730_0757_D.jpg'
-import thirdImage from '@/media/A7A05864.jpg'
-import fourthImage from '@/media/DJI_20240706154216_0778_D.jpg'
+import firstImage from '@/public/first_image.jpg'
+import secondImage from '@/public/second_image.jpg'
+import thirdImage from '@/public/third_image.jpg'
+import fourthImage from '@/public/fourth_image.jpg'
 
 export function PhotosGrid() {
     return(

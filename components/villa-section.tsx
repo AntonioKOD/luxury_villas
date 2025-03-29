@@ -65,7 +65,7 @@ export default function Villas() {
                     src={property.images[0].image.url}
                     alt={property.name}
                     layout="fill"
-                    objectFit="cover"
+                    style={{ objectFit: 'cover' }}
                     className="transition-transform duration-300 hover:scale-105"
                   />
                 </CardHeader>

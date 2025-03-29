@@ -10,9 +10,6 @@ import {vercelBlobStorage} from '@payloadcms/storage-vercel-blob'
 
 
 export default buildConfig({
-  // If you'd like to use Rich Text, pass your editor here
-  serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000',
-
   // Define and configure your collections in this array
   collections: [
     Accounts,
@@ -23,10 +20,10 @@ export default buildConfig({
   plugins: [
     vercelBlobStorage({
       enabled: true,
-      token: process.env.BLOB_READ_WRITE_TOKEN,
       collections: {
         [Media.slug]: true,
-      }
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     })
   ],
   editor: lexicalEditor({}),
