@@ -62,6 +62,7 @@ export default function Villas() {
               {property.images && property.images.length > 0 && (
                 <CardHeader className="relative w-full h-48">
                   <Image
+                    unoptimized
                     src={property.images[0].image.url}
                     alt={property.name}
                     layout="fill"
