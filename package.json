@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "npx payload generate:importmap"
+    "lint": "next lint"
   },
   "dependencies": {
     "@fontsource/bodoni-moda": "^5.2.5",
