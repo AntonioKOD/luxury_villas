@@ -8,6 +8,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardHeader, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 
+
+
 // Helper function to extract plain text from rich text JSON
 function extractPlainText(richTextContent: any): string {
   let plainText = '';

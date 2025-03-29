@@ -19,9 +19,7 @@ export async function getProperty(slug: string){
     const property = await payload.findByID({
         collection: 'properties',
         id: slug,
-        depth: 3
+        depth: 2
     })
-    const data = await property.doc
-    return data
-
+    return property
 }
