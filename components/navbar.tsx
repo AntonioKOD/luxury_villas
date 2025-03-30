@@ -115,7 +115,7 @@ export default function Navbar() {
            Villa 1
             </Link>
             <Link
-              href="/villa-2"
+              href={`/properties/images`}
               className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
