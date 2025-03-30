@@ -1,75 +1,60 @@
 "use client"
 
-import type * as React from "react"
-import { format } from "date-fns"
-import { CalendarRange } from "lucide-react"
-import type { DateRange } from "react-day-picker"
+import * as React from "react"
+import { DayPicker } from "react-day-picker"
+import "react-day-picker/style.css" // import default v9 styles
+import { cn } from "@/lib/utils" // shadcn utility to merge class names
+import { buttonVariants } from "@/components/ui/button" // shadcn button styles
+import { ChevronLeft, ChevronRight } from "lucide-react" // example icons
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+export type DatePickerProps = React.ComponentProps<typeof DayPicker>
 
-interface DatePickerWithRangeProps extends React.HTMLAttributes<HTMLDivElement> {
-  date: DateRange | undefined
-  onDateChangeAction: (date: DateRange | undefined) => void
-}
-
-export function DatePickerWithRange({ className, date, onDateChangeAction }: DatePickerWithRangeProps) {
+function DatePicker({ className, classNames, ...props }: DatePickerProps) {
   return (
-    <div className={cn("grid gap-2", className)}>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant="ghost"
-            className={cn(
-              "w-full justify-start text-left font-normal rounded-none border-b bg-background hover:bg-background p-4 h-auto",
-            )}
-          >
-            <CalendarRange className="mr-3 h-5 w-5 text-primary" />
-            <div className="grid gap-0.5">
-              <div className="font-medium">
-                {date?.from ? (
-                  date.to ? (
-                    <>
-                      {format(date.from, "LLL dd, y")} - {format(date.to, "LLL dd, y")}
-                    </>
-                  ) : (
-                    format(date.from, "LLL dd, y")
-                  )
-                ) : (
-                  "Select dates"
-                )}
-              </div>
-              <div className="text-xs text-muted-foreground">Add your travel dates for exact pricing</div>
-            </div>
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <div className="bg-background p-3 border-b">
-            <div className="space-y-1">
-              <h3 className="font-medium tracking-tight">Select dates</h3>
-              <p className="text-sm text-muted-foreground">Add your travel dates for exact pricing</p>
-            </div>
-          </div>
-          <Calendar
-            initialFocus
-            mode="range"
-            defaultMonth={date?.from || new Date()}
-            selected={date}
-            onSelect={onDateChangeAction}
-            numberOfMonths={1}
-            disabled={(date) => date < new Date()}
-          />
-          <div className="flex items-center justify-end gap-2 p-3 border-t">
-            <Button variant="outline" onClick={() => onDateChangeAction(undefined)}>
-              Clear
-            </Button>
-            <Button onClick={() => document.body.click()}>Apply</Button>
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
+    <DayPicker
+      mode="single" // or use "range" for date ranges
+      className={cn("p-4 bg-background", className)}
+      classNames={{
+        // Update the class keys to match v9 defaults:
+        root: "rdp-root",
+        nav: "flex items-center justify-between",
+        button_previous: cn(
+          buttonVariants({ variant: "outline" }),
+          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
+        ),
+        button_next: cn(
+          buttonVariants({ variant: "outline" }),
+          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
+        ),
+        month_caption: "flex justify-center items-center",
+        caption_label: "text-sm font-medium",
+        month_grid: "w-full border-collapse",
+        weekdays: "flex",
+        weekday: " w-10 font-medium text-sm",
+        week: "flex w-full",
+        day: "h-10 w-10 text-center text-sm p-0 relative",
+        day_button: cn(
+          buttonVariants({ variant: "ghost" }),
+          "h-10 w-10 p-0"
+        ),
+        selected: "bg-primary text-primary-foreground",
+        today: "text-accent-foreground",
+        disabled: "opacity-50",
+        range_start: "rounded-l-md bg-primary text-primary-foreground",
+        range_end: "rounded-r-md bg-primary text-primary-foreground",
+        range_middle: "bg-accent/50",
+        ...classNames,
+      }}
+      components={{
+        // Override the default navigation icons with a single Chevron component.
+        Chevron: ({ orientation, className, ...otherProps }) => {
+          const Icon = orientation === "left" ? ChevronLeft : ChevronRight
+          return <Icon className={cn("h-4 w-4", className)} {...otherProps} />
+        },
+      }}
+      {...props}
+    />
   )
 }
 
+export { DatePicker }
