@@ -73,7 +73,7 @@ export default function BookingWidget({ price, propertyId }: BookingWidgetProps)
                 <SelectTrigger className="w-[100px] border-none shadow-none focus:ring-0 p-0 h-auto">
                   <SelectValue placeholder="Guests" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className='bg-background'>
                   {[1, 2, 3, 4, 5, 6].map((num) => (
                     <SelectItem key={num} value={num.toString()}>
                       {num} {num === 1 ? "guest" : "guests"}

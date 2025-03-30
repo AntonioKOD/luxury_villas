@@ -11,15 +11,14 @@ import Loader from "@/components/loader"
 import Link from "next/link"
 import BookingWidget from "@/components/booking-widget"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Bed, Bath, MapPin,Camera, ArrowLeft } from 'lucide-react'
+import { Bed, Bath, MapPin,Camera } from 'lucide-react'
 import { Map } from "@/components/map"
 
 export default function Property() {
   const { id } = useParams() as { id: string | string[] }
   const [property, setProperty] = useState<JsonObject & TypeWithID | null>(null)
-  const [isScrolled, setIsScrolled] = useState(false)
+  // Removed unused isScrolled state
 
   useEffect(() => {
     if (!id) return
@@ -27,12 +26,7 @@ export default function Property() {
       getProperty(id).then((property) => setProperty(property))
     }
 
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    // Removed unused scroll handling logic
   }, [id])
 
   if (!property) {
