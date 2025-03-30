@@ -39,29 +39,19 @@ export default function Property() {
     return <div className="h-full w-full fixed"><Loader /></div>
   }
 
-  // Mock data for demonstration - replace with actual property data
+
   const propertyDetails = {
     bedrooms: property.bedrooms || 3,
     bathrooms: property.bathrooms || 2,
-    location: property.location?.address || "Bali, Indonesia",
+    location: property.address,
     price: property.price || 250,
     rating: property.rating || 4.9,
-    reviewCount: property.reviewCount || 128
+    reviewCount: property.reviewCount || 19
   }
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Back button */}
-      <div className={`fixed top-4 left-4 z-50 transition-opacity ${isScrolled ? 'opacity-100' : 'opacity-0'}`}>
-        <Link href="/properties">
-          <Button variant="secondary" size="sm" className="rounded-full shadow-md">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to properties
-          </Button>
-        </Link>
-      </div>
 
-      {/* Hero Section */}
       <div className="relative h-[70vh] w-full">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
