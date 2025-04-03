@@ -33,20 +33,16 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl md:text-4xl font-serif font-light text-foreground mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground">
-                <p>
-                  Founded in 2010 by Gjovana Papavasiliou, our villa collection began with a single property on
-                  Santorini that had been in the family for generations. Gjovana&apos;s vision was to share the authentic
-                  Greek island experience with travelers seeking more than just a typical holiday.
-                </p>
-                <p>
-                  Over the years, we carefully expanded our portfolio to include a second exclusive property, each one
-                  personally selected for its unique character, breathtaking location, and ability to provide an
-                  immersive Greek experience.
-                </p>
-                <p>
-                  Today, Gjovana&apos;s Luxury Villas represents the finest in Greek hospitality, combining traditional
-                  architecture with modern luxury and personalized service that makes each stay truly memorable.
-                </p>
+              <p>
+  Nestled on the breathtaking island of Kefalonia, our family-owned villas embody the spirit of authentic Greek hospitality. With a rich heritage passed down through generations, every detail of our service is crafted to ensure you experience the true essence of island living.
+</p>
+<p>
+  We pride ourselves on delivering exceptional service that is both warm and personalized. From the moment you arrive, you’re greeted like family, with every need anticipated and every detail attended to, ensuring your stay is as relaxing as it is memorable.
+</p>
+<p>
+  Embracing the charm and traditions of Kefalonia, our villas blend timeless elegance with modern comforts. Whether you’re seeking a peaceful retreat or a base for exploring the island’s stunning landscapes, our commitment to excellence guarantees an unforgettable experience.
+</p>
+
               </div>
               <div className="mt-8">
                 <Link href="/properties">
