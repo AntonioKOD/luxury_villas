@@ -1,0 +1,283 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import { Mail, Phone, Instagram, Facebook, Twitter, CheckCircle2 } from "lucide-react"
+import villaImage  from '@/public/first_villa_image.jpg'
+export default function ContactPage() {
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+
+    // Reset form and show success message
+    setFormState({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    })
+    setIsSubmitting(false)
+    setIsSubmitted(true)
+
+    // Hide success message after 5 seconds
+    setTimeout(() => setIsSubmitted(false), 5000)
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <div className="relative h-[40vh] md:h-[50vh] w-full">
+        <div className="absolute inset-0 bg-foreground/50 z-10" />
+        <Image
+          src={villaImage}
+          alt="Greek villa with sea view"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center p-4">
+          <h1 className="text-4xl md:text-6xl font-serif font-light text-white mb-4">Contact Us</h1>
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl">
+            Get in touch with our team to plan your perfect Greek island getaway.
+          </p>
+        </div>
+      </div>
+
+      {/* Contact Section */}
+      <section className="py-16 md:py-24 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div>
+              <h2 className="text-3xl font-serif font-light text-foreground mb-6">Send Us a Message</h2>
+              <p className="text-muted-foreground mb-8">
+                Have questions about our villas or want to make a reservation? Fill out the form below and our team will
+                get back to you within 24 hours.
+              </p>
+
+              {isSubmitted ? (
+                <div className="bg-primary/10 border border-primary rounded-lg p-6 text-center">
+                  <CheckCircle2 className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-xl font-medium text-foreground mb-2">Message Sent!</h3>
+                  <p className="text-muted-foreground">
+                    Thank you for contacting us. We&apos;ll respond to your inquiry as soon as possible.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Your Name</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formState.name}
+                      onChange={handleChange}
+                      placeholder="John Doe"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formState.email}
+                      onChange={handleChange}
+                      placeholder="john@example.com"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">Subject</Label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      value={formState.subject}
+                      onChange={handleChange}
+                      placeholder="Booking Inquiry"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formState.message}
+                      onChange={handleChange}
+                      placeholder="Tell us about your travel plans and any specific requirements..."
+                      rows={5}
+                      required
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </Button>
+                </form>
+              )}
+            </div>
+
+            {/* Contact Information */}
+            <div>
+              <h2 className="text-3xl font-serif font-light text-foreground mb-6">Contact Information</h2>
+              <p className="text-muted-foreground mb-8">
+                Whether you prefer to call, email, or visit us in person, we&apos;re here to assist you with any questions
+                about our luxury villas.
+              </p>
+
+              <div className="space-y-8">
+                <div className="flex items-start">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                    <Mail className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium text-foreground mb-1">Email Us</h3>
+                    <p className="text-muted-foreground mb-1">For bookings and inquiries:</p>
+                    <a href="mailto:info@gjovanasvillas.com" className="text-primary hover:underline">
+                      info@gjovanasvillas.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="h-10 w-10 rounded-full bg-secondary/10 flex items-center justify-center mr-4">
+                    <Phone className="h-5 w-5 text-secondary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium text-foreground mb-1">Call Us</h3>
+                    <p className="text-muted-foreground mb-1">Available 7 days a week, 9am-8pm (GMT+3):</p>
+                    <a href="tel:+302810123456" className="text-foreground hover:text-primary">
+                      +30 2810 123 456
+                    </a>
+                  </div>
+                </div>
+
+                {/* Social Media */}
+                <div>
+                  <h3 className="text-lg font-medium text-foreground mb-4">Follow Us</h3>
+                  <div className="flex space-x-4">
+                    <a
+                      href="#"
+                      className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+                    >
+                      <Instagram className="h-5 w-5 text-primary" />
+                    </a>
+                    <a
+                      href="#"
+                      className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+                    >
+                      <Facebook className="h-5 w-5 text-primary" />
+                    </a>
+                    <a
+                      href="#"
+                      className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+                    >
+                      <Twitter className="h-5 w-5 text-primary" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-muted">
+        <div className="container mx-auto max-w-4xl px-4">
+          <h2 className="text-3xl font-serif font-light text-foreground mb-12 text-center">
+            Frequently Asked Questions
+          </h2>
+
+          <div className="space-y-6">
+            <div className="bg-card p-6 rounded-lg border border-border">
+              <h3 className="text-xl font-medium text-foreground mb-2">What is the minimum stay requirement?</h3>
+              <p className="text-muted-foreground">
+                Our minimum stay is typically 3 nights during low season and 7 nights during high season
+                (June-September). However, we can sometimes accommodate shorter stays depending on availability.
+              </p>
+            </div>
+
+            <div className="bg-card p-6 rounded-lg border border-border">
+              <h3 className="text-xl font-medium text-foreground mb-2">Do you offer airport transfers?</h3>
+              <p className="text-muted-foreground">
+                Yes, we provide complimentary airport or port transfers for all our guests. Our driver will meet you
+                upon arrival and help with your luggage.
+              </p>
+            </div>
+
+            <div className="bg-card p-6 rounded-lg border border-border">
+              <h3 className="text-xl font-medium text-foreground mb-2">Can you arrange activities and excursions?</h3>
+              <p className="text-muted-foreground">
+                Our concierge team can arrange a variety of experiences including private yacht charters, wine tastings,
+                cooking classes, and guided tours of the islands.
+              </p>
+            </div>
+
+            <div className="bg-card p-6 rounded-lg border border-border">
+              <h3 className="text-xl font-medium text-foreground mb-2">What is your cancellation policy?</h3>
+              <p className="text-muted-foreground">
+                We offer free cancellation up to 30 days before arrival. Cancellations made 15-29 days before arrival
+                receive a 50% refund. Cancellations made less than 15 days before arrival are non-refundable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-primary text-primary-foreground">
+        <div className="container mx-auto max-w-4xl px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-light mb-6">Ready to Book Your Dream Villa?</h2>
+          <p className="text-lg md:text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
+            Contact us today to check availability and start planning your perfect Greek getaway.
+          </p>
+          <Button
+            size="lg"
+            variant="secondary"
+            className="text-foreground"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Get in Touch
+          </Button>
+        </div>
+      </section>
+    </div>
+  )
+}
+
