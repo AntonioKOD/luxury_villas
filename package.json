@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@fontsource/bodoni-moda": "^5.2.5",
-    "@payloadcms/db-mongodb": "^3.30.0",
+    "@payloadcms/db-mongodb": "^3.31.0",
     "@payloadcms/email-resend": "^3.31.0",
     "@payloadcms/next": "^3.30.0",
     "@payloadcms/richtext-lexical": "^3.31.0",
@@ -39,7 +39,7 @@
     "lucide-react": "^0.484.0",
     "motion": "^12.6.2",
     "next": "^15.2.3",
-    "payload": "^3.30.0",
+    "payload": "^3.32.0",
     "react": "^19.0.0",
     "react-day-picker": "^9.6.4",
     "react-dom": "^19.0.0",
