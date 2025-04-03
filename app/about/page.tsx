@@ -79,7 +79,7 @@ export default function AboutPage() {
                 <div className="h-12 w-12 rounded-full bg-muted"></div>
                 <div className="ml-4">
                   <p className="font-medium text-foreground">Russell</p>
-                  <p className="text-sm text-muted-foreground">Stayed about a weel</p>
+                  <p className="text-sm text-muted-foreground">Stayed about a week</p>
                 </div>
               </div>
             </div>
