@@ -1,44 +1,54 @@
-'use client'
-import { usePathname } from "next/navigation"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// app/properties/[id]/images/page.tsx
 import { getProperty } from "@/actions";
-import { useEffect, useState } from "react";
-import { JsonObject, TypeWithID } from "payload";
 import Image from "next/image";
-import Loader from "@/components/loader";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-interface Image {
-    url: string
-    alt: string
+interface PropertyImage {
+  category: string;
+  image: { url: string; alt: string };
 }
 
+interface Property {
+  images: PropertyImage[];
+  // include other property fields as needed
+}
 
-export default function Images(){
-        const pathname = usePathname();
-        const id = pathname.split('/')[2];
-        const [property, setProperty] = useState<JsonObject & TypeWithID | null>(null)
-       
-        useEffect(() => {
-            if (!id) return
+export default async function ImagesPage({ params }: { params: Promise<{ id: string }> }) {
+  const id =  (await params).id;
+  const rawProperty = await getProperty(id);
+  const property: Property | null = rawProperty && Array.isArray(rawProperty.images)
+    ? {
+        ...rawProperty,
+        images: rawProperty.images.map((image: any) => ({
+          category: image.category || "unknown",
+          image: {
+            url: image.image?.url || "",
+            alt: image.image?.alt || "No description",
+          },
+        })),
+      } as Property
+    : null;
 
-            if (typeof id === 'string') {
-                getProperty(id).then((property) => setProperty(property))
-            }
-        }, [id])
-        if (!property) {
-            return <div className="h-full w-full fixed"><Loader/></div>
-        }
-        
-        
-    return(
-        <div>
-            <Link href={`/properties/${id}`} className="text-black text-2xl text-center top-1/2 flex gap-2 mt-6 -mb-12 mx-3">
-                <ArrowLeft className="mt-1"/> Go back
-            </Link>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 py-20">
-      {property.images.map(
-        (item: { category: string; image: { url: string; alt: string } }) => (
+  if (!property) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p>Property not found.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <Link
+        href={`/properties/${id}`}
+        className="text-black text-2xl text-center flex gap-2 mt-6 -mb-12 mx-3"
+      >
+        <ArrowLeft className="mt-1" /> Go back
+      </Link>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 py-20">
+        {property.images.map((item: PropertyImage) => (
           <div
             key={item.image.url}
             className="relative rounded overflow-hidden shadow-md"
@@ -56,9 +66,8 @@ export default function Images(){
               className="w-full h-full object-cover"
             />
           </div>
-        )
-      )}
+        ))}
+      </div>
     </div>
-    </div>
-    )
+  );
 }

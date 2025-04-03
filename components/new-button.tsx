@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Button = () => {
   return (
-    <StyledWrapper>
+    <StyledWrapper suppressHydrationWarning>
       <button className='text-background'>View Villas</button>
     </StyledWrapper>
   );

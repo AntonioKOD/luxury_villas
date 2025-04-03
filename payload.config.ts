@@ -7,10 +7,17 @@ import { Properties } from './app/(payload)/collections/Properties.ts'
 import { Bookings } from './app/(payload)/collections/Bookings.ts'
 import { Media } from './app/(payload)/collections/Media.ts'
 import {vercelBlobStorage} from '@payloadcms/storage-vercel-blob'
+import {resendAdapter} from '@payloadcms/email-resend'
 
 
 export default buildConfig({
   // Define and configure your collections in this array
+  email: resendAdapter({
+      defaultFromAddress: 'hello@gjovanasvillas.com',
+      defaultFromName: 'Gjovana\'s Villas',
+      apiKey: process.env.RESEND_API_KEY || ''
+  }),
+
   collections: [
     Accounts,
     Properties,
@@ -27,6 +34,7 @@ export default buildConfig({
     })
   ],
   editor: lexicalEditor({}),
+
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || '',

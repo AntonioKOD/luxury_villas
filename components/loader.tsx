@@ -3,188 +3,451 @@ import styled from 'styled-components';
 
 const Loader = () => {
   return (
-    <StyledWrapper>
-      <svg className="pl" viewBox="0 0 160 160" width="160px" height="160px" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="grad" x1={0} y1={0} x2={0} y2={1}>
-            <stop offset="0%" stopColor="#000" />
-            <stop offset="100%" stopColor="#fff" />
-          </linearGradient>
-          <mask id="mask1">
-            <rect x={0} y={0} width={160} height={160} fill="url(#grad)" />
-          </mask>
-          <mask id="mask2">
-            <rect x={28} y={28} width={104} height={104} fill="url(#grad)" />
-          </mask>
-        </defs>
-        <g>
-          <g className="pl__ring-rotate">
-            <circle className="pl__ring-stroke" cx={80} cy={80} r={72} fill="none" stroke="hsl(223,90%,55%)" strokeWidth={16} strokeDasharray="452.39 452.39" strokeDashoffset={452} strokeLinecap="round" transform="rotate(-45,80,80)" />
-          </g>
-        </g>
-        <g mask="url(#mask1)">
-          <g className="pl__ring-rotate">
-            <circle className="pl__ring-stroke" cx={80} cy={80} r={72} fill="none" stroke="hsl(193,90%,55%)" strokeWidth={16} strokeDasharray="452.39 452.39" strokeDashoffset={452} strokeLinecap="round" transform="rotate(-45,80,80)" />
-          </g>
-        </g>
-        <g>
-          <g strokeWidth={4} strokeDasharray="12 12" strokeDashoffset={12} strokeLinecap="round" transform="translate(80,80)">
-            <polyline className="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(-135,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(-90,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(-45,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(0,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(45,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(90,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(135,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(180,0,0) translate(0,40)" />
-          </g>
-        </g>
-        <g mask="url(#mask1)">
-          <g strokeWidth={4} strokeDasharray="12 12" strokeDashoffset={12} strokeLinecap="round" transform="translate(80,80)">
-            <polyline className="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(-135,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(-90,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(-45,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(0,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(45,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(90,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(135,0,0) translate(0,40)" />
-            <polyline className="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(180,0,0) translate(0,40)" />
-          </g>
-        </g>
-        <g>
-          <g transform="translate(64,28)">
-            <g className="pl__arrows" transform="rotate(45,16,52)">
-              <path fill="hsl(3,90%,55%)" d="M17.998,1.506l13.892,43.594c.455,1.426-.56,2.899-1.998,2.899H2.108c-1.437,0-2.452-1.473-1.998-2.899L14.002,1.506c.64-2.008,3.356-2.008,3.996,0Z" />
-              <path fill="hsl(223,10%,90%)" d="M14.009,102.499L.109,58.889c-.453-1.421,.559-2.889,1.991-2.889H29.899c1.433,0,2.444,1.468,1.991,2.889l-13.899,43.61c-.638,2.001-3.345,2.001-3.983,0Z" />
-            </g>
-          </g>
-        </g>
-        <g mask="url(#mask2)">
-          <g transform="translate(64,28)">
-            <g className="pl__arrows" transform="rotate(45,16,52)">
-              <path fill="hsl(333,90%,55%)" d="M17.998,1.506l13.892,43.594c.455,1.426-.56,2.899-1.998,2.899H2.108c-1.437,0-2.452-1.473-1.998-2.899L14.002,1.506c.64-2.008,3.356-2.008,3.996,0Z" />
-              <path fill="hsl(223,90%,80%)" d="M14.009,102.499L.109,58.889c-.453-1.421,.559-2.889,1.991-2.889H29.899c1.433,0,2.444,1.468,1.991,2.889l-13.899,43.61c-.638,2.001-3.345,2.001-3.983,0Z" />
-            </g>
-          </g>
-        </g>
-      </svg>
+    <StyledWrapper suppressHydrationWarning>
+      <div className="socket">
+        <div className="gel center-gel">
+          <div className="circle" />
+        </div>
+        <div className="gel c1 r1">
+          <div className="circle" />
+        </div>
+        <div className="gel c2 r1">
+          <div className="circle" />
+        </div>
+        <div className="gel c3 r1">
+          <div className="circle" />
+        </div>
+        <div className="gel c4 r1">
+          <div className="circle" />
+        </div>
+        <div className="gel c5 r1">
+          <div className="circle" />
+        </div>
+        <div className="gel c6 r1">
+          <div className="circle" />
+        </div>
+        <div className="gel c7 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c8 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c9 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c10 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c11 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c12 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c13 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c14 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c15 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c16 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c17 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c18 r2">
+          <div className="circle" />
+        </div>
+        <div className="gel c19 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c20 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c21 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c22 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c23 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c24 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c25 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c26 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c28 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c29 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c30 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c31 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c32 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c33 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c34 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c35 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c36 r3">
+          <div className="circle" />
+        </div>
+        <div className="gel c37 r3">
+          <div className="circle" />
+        </div>
+      </div>
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.div`
-  .pl {
-    display: block;
-    width: 9.375em;
-    height: 9.375em;
+  css <style > .socket {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -100px;
   }
 
-  .pl__arrows,
-  .pl__ring-rotate,
-  .pl__ring-stroke,
-  .pl__tick {
+  .circle {
+    background: #000000;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation-name: fade00;
     animation-duration: 2s;
-    animation-timing-function: linear;
     animation-iteration-count: infinite;
+    -webkit-animation-name: fade00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
   }
 
-  .pl__arrows {
-    animation-name: arrows42;
-    transform: rotate(45deg);
-    transform-origin: 16px 52px;
+  .gel {
+    height: 30px;
+    width: 30px;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
   }
 
-  .pl__ring-rotate,
-  .pl__ring-stroke {
-    transform-origin: 80px 80px;
+  .center-gel {
+    margin-left: -15px;
+    margin-top: -15px;
+    animation-name: pulse00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: pulse00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
   }
 
-  .pl__ring-rotate {
-    animation-name: ringRotate42;
+  .c1 {
+    margin-left: -47px;
+    margin-top: -15px;
   }
 
-  .pl__ring-stroke {
-    animation-name: ringStroke42;
-    transform: rotate(-45deg);
+  .c2 {
+    margin-left: -31px;
+    margin-top: -43px;
   }
 
-  .pl__tick {
-    animation-name: tick42;
+  .c3 {
+    margin-left: 1px;
+    margin-top: -43px;
   }
 
-  .pl__tick:nth-child(2) {
-    animation-delay: -1.75s;
+  .c4 {
+    margin-left: 17px;
+    margin-top: -15px;
   }
 
-  .pl__tick:nth-child(3) {
-    animation-delay: -1.5s;
+  .c5 {
+    margin-left: -31px;
+    margin-top: 13px;
   }
 
-  .pl__tick:nth-child(4) {
-    animation-delay: -1.25s;
+  .c6 {
+    margin-left: 1px;
+    margin-top: 13px;
   }
 
-  .pl__tick:nth-child(5) {
-    animation-delay: -1s;
+  .c7 {
+    margin-left: -63px;
+    margin-top: -43px;
   }
 
-  .pl__tick:nth-child(6) {
-    animation-delay: -0.75s;
+  .c8 {
+    margin-left: 33px;
+    margin-top: -43px;
   }
 
-  .pl__tick:nth-child(7) {
-    animation-delay: -0.5s;
+  .c9 {
+    margin-left: -15px;
+    margin-top: 41px;
   }
 
-  .pl__tick:nth-child(8) {
-    animation-delay: -0.25s;
+  .c10 {
+    margin-left: -63px;
+    margin-top: 13px;
   }
 
-  /* Animations */
-  @keyframes arrows42 {
-    from {
-      transform: rotate(45deg);
-    }
-
-    to {
-      transform: rotate(405deg);
-    }
+  .c11 {
+    margin-left: 33px;
+    margin-top: 13px;
   }
 
-  @keyframes ringRotate42 {
-    from {
-      transform: rotate(0);
-    }
-
-    to {
-      transform: rotate(720deg);
-    }
+  .c12 {
+    margin-left: -15px;
+    margin-top: -71px;
   }
 
-  @keyframes ringStroke42 {
-    from,
-  	to {
-      stroke-dashoffset: 452;
-      transform: rotate(-45deg);
+  .c13 {
+    margin-left: -47px;
+    margin-top: -71px;
+  }
+
+  .c14 {
+    margin-left: 17px;
+    margin-top: -71px;
+  }
+
+  .c15 {
+    margin-left: -47px;
+    margin-top: 41px;
+  }
+
+  .c16 {
+    margin-left: 17px;
+    margin-top: 41px;
+  }
+
+  .c17 {
+    margin-left: -79px;
+    margin-top: -15px;
+  }
+
+  .c18 {
+    margin-left: 49px;
+    margin-top: -15px;
+  }
+
+  .c19 {
+    margin-left: -63px;
+    margin-top: -99px;
+  }
+
+  .c20 {
+    margin-left: 33px;
+    margin-top: -99px;
+  }
+
+  .c21 {
+    margin-left: 1px;
+    margin-top: -99px;
+  }
+
+  .c22 {
+    margin-left: -31px;
+    margin-top: -99px;
+  }
+
+  .c23 {
+    margin-left: -63px;
+    margin-top: 69px;
+  }
+
+  .c24 {
+    margin-left: 33px;
+    margin-top: 69px;
+  }
+
+  .c25 {
+    margin-left: 1px;
+    margin-top: 69px;
+  }
+
+  .c26 {
+    margin-left: -31px;
+    margin-top: 69px;
+  }
+
+  .c27 {
+    margin-left: -79px;
+    margin-top: -15px;
+  }
+
+  .c28 {
+    margin-left: -95px;
+    margin-top: -43px;
+  }
+
+  .c29 {
+    margin-left: -95px;
+    margin-top: 13px;
+  }
+
+  .c30 {
+    margin-left: 49px;
+    margin-top: 41px;
+  }
+
+  .c31 {
+    margin-left: -79px;
+    margin-top: -71px;
+  }
+
+  .c32 {
+    margin-left: -111px;
+    margin-top: -15px;
+  }
+
+  .c33 {
+    margin-left: 65px;
+    margin-top: -43px;
+  }
+
+  .c34 {
+    margin-left: 65px;
+    margin-top: 13px;
+  }
+
+  .c35 {
+    margin-left: -79px;
+    margin-top: 41px;
+  }
+
+  .c36 {
+    margin-left: 49px;
+    margin-top: -71px;
+  }
+
+  .c37 {
+    margin-left: 81px;
+    margin-top: -15px;
+  }
+
+  .r1 {
+    animation-name: pulse00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: 0.2s;
+    -webkit-animation-name: pulse00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: 0.2s;
+  }
+
+  .r2 {
+    animation-name: pulse00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: 0.4s;
+    -webkit-animation-name: pulse00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: 0.4s;
+  }
+
+  .r3 {
+    animation-name: pulse00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: 0.6s;
+    -webkit-animation-name: pulse00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: 0.6s;
+  }
+
+  .r1 > .circle {
+    animation-name: fade00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: 0.2s;
+    -webkit-animation-name: fade00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: 0.2s;
+  }
+
+  .r2 > .circle {
+    animation-name: fade00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: 0.4s;
+    -webkit-animation-name: fade00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: 0.4s;
+  }
+
+  .r3 > .circle {
+    animation-name: fade00;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: 0.6s;
+    -webkit-animation-name: fade00;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: 0.6s;
+  }
+
+  @keyframes pulse00 {
+    0% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
     }
 
     50% {
-      stroke-dashoffset: 169.5;
-      transform: rotate(-180deg);
+      -webkit-transform: scale(0.01);
+      transform: scale(0.01);
+    }
+
+    100% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
     }
   }
 
-  @keyframes tick42 {
-    from,
-  	3%,
-  	47%,
-  	to {
-      stroke-dashoffset: -12;
+  @keyframes fade00 {
+    0% {
+      background: #252525;
     }
 
-    14%,
-  	36% {
-      stroke-dashoffset: 0;
+    50% {
+      background: #000000;
+    }
+
+    100% {
+      background: #353535;
     }
   }`;
 

@@ -5,13 +5,15 @@ import { DayPicker } from "react-day-picker"
 import "react-day-picker/style.css" // import default v9 styles
 import { cn } from "@/lib/utils" // shadcn utility to merge class names
 import { buttonVariants } from "@/components/ui/button" // shadcn button styles
-import { ChevronLeft, ChevronRight } from "lucide-react" // example icons
+import { ChevronLeft, ChevronRight } from "lucide-react"
+
 
 export type DatePickerProps = React.ComponentProps<typeof DayPicker>
 
 function DatePicker({ className, classNames, ...props }: DatePickerProps) {
   return (
     <DayPicker
+      disabled={{before: new Date()}}
       mode="single" // or use "range" for date ranges
       className={cn("p-4 bg-background", className)}
       classNames={{
@@ -38,11 +40,11 @@ function DatePicker({ className, classNames, ...props }: DatePickerProps) {
           "h-10 w-10 p-0"
         ),
         selected: "bg-primary text-primary-foreground",
-        today: "text-accent-foreground",
+        today: "text-black bg-accent/50 rounded-full",
         disabled: "opacity-50",
-        range_start: "rounded-l-md bg-primary text-primary-foreground",
-        range_end: "rounded-r-md bg-primary text-primary-foreground",
-        range_middle: "bg-accent/50",
+        range_start: "rounded-full bg-primary text-primary-foreground",
+        range_end: "rounded-full bg-primary text-primary-foreground",
+        range_middle: "bg-accent/50 rounded-full",
         ...classNames,
       }}
       components={{

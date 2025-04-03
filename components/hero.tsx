@@ -35,7 +35,7 @@ export default function Hero(){
                 Priority dates tailored for you <br/>
                 Make your dream getaway a reality
             </motion.p>
-            <Link href='/villas'>
+            <Link href='/properties'>
             <Button/>
             </Link>
             </div>

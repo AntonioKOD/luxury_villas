@@ -91,5 +91,35 @@ export const Properties: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'availability',
+      label: 'Unavailable Dates',
+      type: 'array',
+      admin: {
+        description: 'Dates this property is unavailable',
+      },
+      fields: [
+        {
+          name: 'from',
+          type: 'date',
+          required: true,
+          label: 'From',
+        },
+        {
+          name: 'to',
+          type: 'date',
+          required: true,
+          label: 'To',
+        }
+      ]
+    },
+  {
+    name: 'priceId',
+    type: 'text',
+    admin: {
+      description: 'Stripe Price ID for this property',
+    },
+    required: true,
+  }
   ],
 };
