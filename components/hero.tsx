@@ -14,7 +14,8 @@ export default function Hero(){
         <div  className='h-screen relative w-full'>
             <div
             className='absolute inset-0 bg-cover bg-center bg-no-repeat'
-            style={{backgroundImage: "url('https://i.imgur.com/GBbpytW.jpeg')"}}>
+            style={{backgroundImage: "url('https://i.imgur.com/4dv2uOA.png')"}}
+>
                 <div className='absolute inset-0 bg-black/40'></div>
             </div>
             <div className='relative h-full flex flex-col justify-center items-center'>
