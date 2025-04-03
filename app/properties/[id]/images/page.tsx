@@ -59,6 +59,7 @@ export default async function ImagesPage({ params }: { params: Promise<{ id: str
             </div>
             {/* Image */}
             <Image
+            unoptimized
               src={item.image.url}
               alt={item.image.alt}
               width={400}
