@@ -31,7 +31,6 @@ export async function getAvailability(slug: string){
         depth: 2,
         select: { availability: true }
     })
-    console.log(availability)
     return availability
 }
 

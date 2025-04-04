@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Calendar, Users, CreditCard, Info, CheckCircle2 } from "lucide-react"
@@ -43,6 +43,11 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
   const [isLoading, setIsLoading] = useState(false)
   const [datePickerOpen, setDatePickerOpen] = useState(false)
 
+  const datePickerRef = useRef<HTMLDivElement>(null)
+
+  // Add a new state to track the selection process
+  const [selectionState, setSelectionState] = useState<"start" | "end" | "complete">("start")
+
   useEffect(() => {
     const fetchAvailability = async () => {
       const result = await getAvailability(propertyId)
@@ -56,6 +61,25 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
     }
     fetchAvailability()
   }, [propertyId])
+
+  // Close date picker when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (datePickerRef.current && !datePickerRef.current.contains(event.target as Node)) {
+        setDatePickerOpen(false)
+        // Reset selection state when closing
+        setSelectionState("start")
+      }
+    }
+
+    // Only add the event listener when the date picker is open
+    if (datePickerOpen) {
+      document.addEventListener("mousedown", handleClickOutside)
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside)
+      }
+    }
+  }, [datePickerOpen])
 
   // Calculate number of nights and pricing
   const nights =
@@ -72,22 +96,21 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
       alert("Please complete all required fields.")
       return
     }
-  
+
     setIsLoading(true)
-  
+
     try {
       // Prepare booking data to be sent as metadata to Stripe
       const bookingData = {
         propertyId,
         checkInDate: date.from.toISOString(), // renamed and converted to string
-        checkOutDate: date.to.toISOString(),    // renamed and converted to string
+        checkOutDate: date.to.toISOString(), // renamed and converted to string
         guests,
         guestName,
         email,
         total,
       }
-      console.log("Booking Data:", bookingData)
-  
+
       // Pass bookingData along with other parameters
       const res = await fetch("/api/create-checkout-session", {
         method: "POST",
@@ -100,16 +123,15 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
           bookingData, // New addition: all booking details
         }),
       })
-  
+
       const data = await res.json()
       const sessionId = data.sessionId
-      console.log("Session ID:", sessionId)
-  
+
       const stripe = await stripePromise
       const { error } = await stripe!.redirectToCheckout({
         sessionId,
       })
-  
+
       if (error) {
         console.error("Stripe Checkout Error:", error)
         setIsLoading(false)
@@ -138,6 +160,37 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
 
       <CardContent className="p-0">
         <div className="p-6 space-y-6">
+          {/* Guest Details Form */}
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="guest-name" className="font-medium">
+                Guest Name
+              </Label>
+              <Input
+                id="guest-name"
+                type="text"
+                placeholder="Full Name"
+                value={guestName}
+                onChange={(e) => setGuestName(e.target.value)}
+                className="bg-background"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email" className="font-medium">
+                Email Address
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="your@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-background"
+              />
+            </div>
+          </div>
+
           {/* Date Selection */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
@@ -168,15 +221,42 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
               </button>
 
               {datePickerOpen && (
-                <div className="absolute z-50 mt-1 w-full bg-background border rounded-lg shadow-lg">
+                <div
+                  ref={datePickerRef}
+                  className="absolute z-50 mt-1 w-full bg-background border rounded-lg shadow-lg"
+                >
                   <div className="p-3">
                     <DatePicker
                       mode="range"
                       selected={date}
                       disabled={availability.map(({ from, to }) => ({ after: from, before: to }))}
                       onSelect={(newDate) => {
+                        // Store the previous date to compare
+                        const prevFrom = date?.from
+                        const prevTo = date?.to
+
+                        // Update the date state
                         setDate(newDate)
-                        // Remove the automatic closing logic
+
+                        // Logic to determine if we're starting a new selection or completing one
+                        if (!newDate) {
+                          // Reset if selection is cleared
+                          setSelectionState("start")
+                        } else if (!prevFrom && newDate.from && !newDate.to) {
+                          // First date in a new selection
+                          setSelectionState("end")
+                        } else if (
+                          newDate.from &&
+                          newDate.to &&
+                          (selectionState === "end" || (prevFrom && !prevTo && newDate.to))
+                        ) {
+                          // Complete selection - only close if we were in 'end' state or
+                          // if we just added an end date to an existing start date
+                          setSelectionState("complete")
+                          setDatePickerOpen(false)
+                          // Reset for next time
+                          setTimeout(() => setSelectionState("start"), 100)
+                        }
                       }}
                     />
                   </div>
@@ -204,37 +284,6 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-          </div>
-
-          {/* Guest Details Form */}
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="guest-name" className="font-medium">
-                Guest Name
-              </Label>
-              <Input
-                id="guest-name"
-                type="text"
-                placeholder="Full Name"
-                value={guestName}
-                onChange={(e) => setGuestName(e.target.value)}
-                className="bg-background"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email" className="font-medium">
-                Email Address
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-background"
-              />
             </div>
           </div>
         </div>
