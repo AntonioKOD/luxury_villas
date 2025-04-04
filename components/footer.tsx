@@ -64,16 +64,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/villa-1" className="text-muted-foreground hover:text-accent transition-colors duration-300">
-                  Villa 1
-                </Link>
-              </li>
-              <li>
                 <Link
-                  href="/villa-2"
+                  href="/properties"
                   className="text-muted-foreground hover:text-accent transition-colors duration-300"
                 >
-                  Villa 2
+                  Villas
                 </Link>
               </li>
             </ul>
@@ -83,9 +78,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Contact Us</h3>
             <address className="not-italic text-muted-foreground">
-              123 Street Street,
-              <br />
-              Weymouth, MA 02188
+              Svoronata, Greece
             </address>
             <p className="mt-4 text-muted-foreground">
               <strong>Phone:</strong> (123) 456-7890
