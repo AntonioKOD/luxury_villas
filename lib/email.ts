@@ -8,10 +8,26 @@ export type BookingDetails = {
   propertyId: string // Kept in type but not displayed in email
 }
 
+// Function to format dates in a user-friendly way
+function formatDate(dateString: string): string {
+  // Parse the date string into a Date object
+  const date = new Date(dateString)
 
+  // Format the date to show day of week, month, day, and year
+  return date.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })
+}
 
 export async function sendVerificationEmail(email: string, bookingDetails: BookingDetails): Promise<any> {
   const { guestName, checkInDate, checkOutDate } = bookingDetails
+
+  // Format the dates
+  const formattedCheckInDate = formatDate(checkInDate)
+  const formattedCheckOutDate = formatDate(checkOutDate)
 
   // Generate a 6-digit confirmation number as a string
   const confirmationNumber = Math.floor(100000 + Math.random() * 900000).toString()
@@ -53,11 +69,15 @@ export async function sendVerificationEmail(email: string, bookingDetails: Booki
                   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 30px;">
                     <tr>
                       <td width="140" style="padding: 10px 0; font-weight: 600; color: #666666;">Check-In:</td>
-                      <td style="padding: 10px 0;">${checkInDate}</td>
+                      <td style="padding: 10px 0;">${formattedCheckInDate}</td>
                     </tr>
                     <tr>
                       <td width="140" style="padding: 10px 0; font-weight: 600; color: #666666;">Check-Out:</td>
-                      <td style="padding: 10px 0;">${checkOutDate}</td>
+                      <td style="padding: 10px 0;">${formattedCheckOutDate}</td>
+                    </tr>
+                    <tr>
+                      <td width="140" style="padding: 10px 0; font-weight: 600; color: #666666;">Duration:</td>
+                      <td style="padding: 10px 0;">${calculateDuration(checkInDate, checkOutDate)} nights</td>
                     </tr>
                   </table>
                   
@@ -94,5 +114,17 @@ export async function sendVerificationEmail(email: string, bookingDetails: Booki
   } catch (error) {
     throw new Error(`Failed to send email: ${error}`)
   }
+}
+
+// Function to calculate the duration of stay in nights
+function calculateDuration(checkInDate: string, checkOutDate: string): number {
+  const checkIn = new Date(checkInDate)
+  const checkOut = new Date(checkOutDate)
+
+  // Calculate the difference in milliseconds
+  const differenceInTime = checkOut.getTime() - checkIn.getTime()
+
+  // Convert to days and return
+  return Math.round(differenceInTime / (1000 * 3600 * 24))
 }
 
