@@ -216,67 +216,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      {/* FAQ Section */}
-      <section className="py-16 bg-muted">
-        <div className="container mx-auto max-w-4xl px-4">
-          <h2 className="text-3xl font-serif font-light text-foreground mb-12 text-center">
-            Frequently Asked Questions
-          </h2>
-
-          <div className="space-y-6">
-            <div className="bg-card p-6 rounded-lg border border-border">
-              <h3 className="text-xl font-medium text-foreground mb-2">What is the minimum stay requirement?</h3>
-              <p className="text-muted-foreground">
-                Our minimum stay is typically 3 nights during low season and 7 nights during high season
-                (June-September). However, we can sometimes accommodate shorter stays depending on availability.
-              </p>
-            </div>
-
-            <div className="bg-card p-6 rounded-lg border border-border">
-              <h3 className="text-xl font-medium text-foreground mb-2">Do you offer airport transfers?</h3>
-              <p className="text-muted-foreground">
-                Yes, we provide complimentary airport or port transfers for all our guests. Our driver will meet you
-                upon arrival and help with your luggage.
-              </p>
-            </div>
-
-            <div className="bg-card p-6 rounded-lg border border-border">
-              <h3 className="text-xl font-medium text-foreground mb-2">Can you arrange activities and excursions?</h3>
-              <p className="text-muted-foreground">
-                Our concierge team can arrange a variety of experiences including private yacht charters, wine tastings,
-                cooking classes, and guided tours of the islands.
-              </p>
-            </div>
-
-            <div className="bg-card p-6 rounded-lg border border-border">
-              <h3 className="text-xl font-medium text-foreground mb-2">What is your cancellation policy?</h3>
-              <p className="text-muted-foreground">
-                We offer free cancellation up to 30 days before arrival. Cancellations made 15-29 days before arrival
-                receive a 50% refund. Cancellations made less than 15 days before arrival are non-refundable.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-primary text-primary-foreground">
-        <div className="container mx-auto max-w-4xl px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-light mb-6">Ready to Book Your Dream Villa?</h2>
-          <p className="text-lg md:text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
-            Contact us today to check availability and start planning your perfect Greek getaway.
-          </p>
-          <Button
-            size="lg"
-            variant="secondary"
-            className="text-foreground"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            Get in Touch
-          </Button>
-        </div>
-      </section>
     </div>
   )
 }
