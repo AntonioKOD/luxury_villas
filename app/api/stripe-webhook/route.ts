@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     // Fetch the property data.
     // Use an absolute URL if needed (e.g., from NEXT_PUBLIC_BASE_URL).
     const propertyRes = await fetch(
-      `/api/properties/${propertyId}`,
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/properties/${propertyId}`,
       {
         method: 'GET',
         headers: {
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
     ];
 
     const updateRes = await fetch(
-      `/api/properties/${propertyId}`,
+      `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/properties/${propertyId}`,
       {
         method: 'PATCH',
         headers: {
