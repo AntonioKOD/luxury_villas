@@ -26,7 +26,7 @@ export default function PropertyBookingSection() {
   return (
     // "pt-24" provides top padding so content doesn't overlap with a fixed navbar.
     <div className="pt-24 px-4">
-      <BookingWidget propertyId={typeof id === "string" ? id : id[0]} price={property?.price} priceId={property?.priceId} success_url="http://gjovanasvillas.com/success" cancel_url="http://gjovanasvillas.com/cancel"/>
+      <BookingWidget propertyId={typeof id === "string" ? id : id[0]} price={property?.price} priceId={property?.priceId} success_url="http://www.gjovanasvillas.com/success" cancel_url="http://www.gjovanasvillas.com/cancel"/>
     </div>
   )
 }
