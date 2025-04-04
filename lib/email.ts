@@ -40,7 +40,7 @@ export async function sendVerificationEmail(
   try {
     // Use the Resend library to send the email
     const data = await resend.emails.send({
-      from: "Your Company <no-reply@yourcompany.com>", // update with your sender details
+      from: "Gjovana's Villas <info@gjovanasvillas.com>", // update with your sender details
       to: email,
       subject: `Your Booking Confirmation - ${confirmationNumber}`,
       html: emailContent,

@@ -4,7 +4,9 @@ import Stripe from 'stripe';
 import { createBooking } from '@/actions';
 import { sendVerificationEmail } from '@/lib/email';
 
-const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!);
+const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!, {
+    apiVersion: '2025-02-24.acacia',
+  });
 
 export const config = {
   api: {
