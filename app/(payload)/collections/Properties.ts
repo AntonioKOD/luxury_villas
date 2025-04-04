@@ -4,7 +4,9 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 export const Properties: CollectionConfig = {
   slug: 'properties',
   access: {
-    read: () => true,},
+    read: () => true,
+  update: () => true,},
+
   fields: [
     {
       name: 'name',
