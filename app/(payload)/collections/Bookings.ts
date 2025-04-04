@@ -3,6 +3,12 @@ import { CollectionConfig } from "payload";
 
 export const Bookings: CollectionConfig = {
     slug: 'bookings',
+    access: {
+      read: () => true,
+      create: () => true,
+      update: () => false,
+      delete: () => false,
+    },
     fields: [
         {
             name: 'guestName',

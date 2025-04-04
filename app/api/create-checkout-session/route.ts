@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!)
 export async function POST(req: Request) {
   try {
     // Parse the JSON body
-    const { priceId, quantity, success_url, cancel_url } = await req.json()
+    const { priceId, quantity, success_url, cancel_url, bookingData } = await req.json()
 
     if (!priceId || !quantity || !success_url || !cancel_url) {
       return NextResponse.json(
@@ -26,6 +26,9 @@ export async function POST(req: Request) {
       ],
       success_url: `${success_url}?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancel_url,
+      metadata: {
+        ...bookingData,
+      }
     })
 
     return NextResponse.json({ sessionId: session.id })

@@ -72,41 +72,44 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
       alert("Please complete all required fields.")
       return
     }
-
+  
     setIsLoading(true)
-
+  
     try {
+      // Prepare booking data to be sent as metadata to Stripe
       const bookingData = {
         propertyId,
-        checkIn: date.from,
-        checkOut: date.to,
+        checkInDate: date.from.toISOString(), // renamed and converted to string
+        checkOutDate: date.to.toISOString(),    // renamed and converted to string
         guests,
         guestName,
         email,
         total,
       }
       console.log("Booking Data:", bookingData)
-
+  
+      // Pass bookingData along with other parameters
       const res = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          priceId: priceId,
+          priceId,
           quantity: nights,
-          success_url: success_url,
-          cancel_url: cancel_url,
+          success_url,
+          cancel_url,
+          bookingData, // New addition: all booking details
         }),
       })
-
+  
       const data = await res.json()
       const sessionId = data.sessionId
       console.log("Session ID:", sessionId)
-
+  
       const stripe = await stripePromise
       const { error } = await stripe!.redirectToCheckout({
         sessionId,
       })
-
+  
       if (error) {
         console.error("Stripe Checkout Error:", error)
         setIsLoading(false)
