@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, LogIn, LogOut } from "lucide-react"
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useMobile } from "@/hooks/useMobile"
 import logo from "@/public/logo2_villas.svg" // Adjust the path to your actual logo file
@@ -17,10 +17,10 @@ const links = [
 ]
 
 // Define paths that should always have the "scrolled" appearance
-const scrolledByDefaultPaths = ["/about", "/contact", "/login", "/properties"]
+const scrolledByDefaultPaths = ["/about", "/contact", "/login", "/properties", "/success"]
 
 // Fetch user data from the /me endpoint
-async function getUser() {
+/*async function getUser() {
   try {
     const res = await fetch("/api/accounts/me", { credentials: "include" })
     const data = await res.json()
@@ -30,14 +30,14 @@ async function getUser() {
     console.error("Error fetching user:", error)
     return null
   }
-}
+}*/
 
 export default function Navbar() {
   const isMobile = useMobile()
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [user, setUser] = useState(null)
+  
 
   // Check if current path should have scrolled appearance by default
   const shouldHaveScrolledAppearance = scrolledByDefaultPaths.some(
@@ -48,9 +48,9 @@ export default function Navbar() {
   const hasScrolledAppearance = isScrolled || shouldHaveScrolledAppearance
 
   // Fetch user data only once when the component mounts
-  useEffect(() => {
-    getUser().then((fetchedUser) => setUser(fetchedUser))
-  }, [])
+  //useEffect(() => {
+   // getUser().then((fetchedUser) => setUser(fetchedUser))
+  //}, [])
 
   // Update navbar style based on scroll position
   useEffect(() => {
@@ -62,10 +62,10 @@ export default function Navbar() {
   }, [])
 
   // Handle logout and clear user state
-  const handleLogout = async () => {
+  /*const handleLogout = async () => {
     await logout()
     setUser(null)
-  }
+  }*/
 
   return (
     <nav
@@ -107,28 +107,6 @@ export default function Navbar() {
                   {label}
                 </Link>
               ))}
-              {user ? (
-                <Button
-                  onClick={handleLogout}
-                  variant={hasScrolledAppearance ? "default" : "outline"}
-                  className="flex items-center gap-2 px-3 py-2 rounded-md font-medium"
-                >
-                  <LogOut size={16} />
-                  Logout
-                </Button>
-              ) : (
-                <Link href="/login">
-                  <Button
-                    variant={hasScrolledAppearance ? "default" : "outline"}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-md font-medium ${
-                      !hasScrolledAppearance ? "text-white border-white hover:bg-white/10" : ""
-                    }`}
-                  >
-                    <LogIn size={16} />
-                    Login
-                  </Button>
-                </Link>
-              )}
             </div>
           </div>
 
@@ -163,7 +141,7 @@ export default function Navbar() {
                 {label}
               </Link>
             ))}
-            {user ? (
+            {/*{user ? (
               <Button
                 onClick={() => {
                   handleLogout()
@@ -185,7 +163,7 @@ export default function Navbar() {
                   Login
                 </Button>
               </Link>
-            )}
+            )}*/}
           </div>
         </div>
       )}
@@ -194,7 +172,7 @@ export default function Navbar() {
 }
 
 // Logout function that calls the logout endpoint
-async function logout() {
+/*async function logout() {
   await fetch("http://localhost:3000/api/accounts/logout", {
     method: "POST",
     headers: {
@@ -202,5 +180,5 @@ async function logout() {
     },
     credentials: "include",
   })
-}
+}*/
 

@@ -409,19 +409,12 @@ export default function Property() {
                     <span className="text-muted-foreground">({propertyDetails.reviewCount} reviews)</span>
                   </div>
 
-                  {user ? (
+                 
                     <Link href={`/properties/${id}/book-property`} className="block w-full">
                       <Button className="w-full rounded-lg py-6" size="lg">
                         Book Now
                       </Button>
                     </Link>
-                  ) : (
-                    <Link href="/login" className="block w-full">
-                      <Button className="w-full rounded-lg py-6" size="lg">
-                        Sign in to Book
-                      </Button>
-                    </Link>
-                  )}
                 </div>
               </div>
 

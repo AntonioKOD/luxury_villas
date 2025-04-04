@@ -7,7 +7,7 @@ export const Bookings: CollectionConfig = {
       read: () => true,
       create: () => true,
       update: () => false,
-      delete: () => false,
+      delete: () => true,
     },
     fields: [
         {

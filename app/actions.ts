@@ -17,3 +17,5 @@ export const getProperties = async (page=1, limit=10) => {
 
     return properties
 }
+
+

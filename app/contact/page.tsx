@@ -8,8 +8,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Mail, Phone, Instagram, Facebook, Twitter, CheckCircle2 } from "lucide-react"
+import { Mail, Phone, CheckCircle2 } from "lucide-react"
 import villaImage  from '@/public/first_villa_image.jpg'
+
+
+
 export default function ContactPage() {
   const [formState, setFormState] = useState({
     name: "",
@@ -32,7 +35,22 @@ export default function ContactPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
+    try {
+      const res = await fetch("/api/send-contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      })
+      if (!res.ok) {
+        throw new Error("Failed to send message")
+      }
+    }catch (error) {
+      console.error("Error sending message:", error)
+      setIsSubmitting(false)
+      return
+    }
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
     // Reset form and show success message
@@ -187,30 +205,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Social Media */}
-                <div>
-                  <h3 className="text-lg font-medium text-foreground mb-4">Follow Us</h3>
-                  <div className="flex space-x-4">
-                    <a
-                      href="#"
-                      className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
-                    >
-                      <Instagram className="h-5 w-5 text-primary" />
-                    </a>
-                    <a
-                      href="#"
-                      className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
-                    >
-                      <Facebook className="h-5 w-5 text-primary" />
-                    </a>
-                    <a
-                      href="#"
-                      className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
-                    >
-                      <Twitter className="h-5 w-5 text-primary" />
-                    </a>
-                  </div>
-                </div>
+      
               </div>
             </div>
           </div>
