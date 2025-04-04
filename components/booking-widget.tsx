@@ -27,9 +27,10 @@ interface BookingWidgetProps {
 
 export default function BookingWidget({ price, propertyId, priceId, success_url, cancel_url }: BookingWidgetProps) {
   // Initial state: default date range from today to tomorrow
+  const today = new Date()
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 1),
+    from: today,
+    to: addDays(today, 1),
   })
 
   const [guests, setGuests] = useState("2")
@@ -110,6 +111,7 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
         email,
         total,
       }
+      console.log("Booking Data:", bookingData)
 
       // Pass bookingData along with other parameters
       const res = await fetch("/api/create-checkout-session", {
@@ -126,6 +128,7 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
 
       const data = await res.json()
       const sessionId = data.sessionId
+      console.log("Session ID:", sessionId)
 
       const stripe = await stripePromise
       const { error } = await stripe!.redirectToCheckout({
@@ -229,7 +232,12 @@ export default function BookingWidget({ price, propertyId, priceId, success_url,
                     <DatePicker
                       mode="range"
                       selected={date}
-                      disabled={availability.map(({ from, to }) => ({ after: from, before: to }))}
+                      disabled={[
+                        // Disable all dates before today
+                        { before: new Date() },
+                        // Disable unavailable dates from the API
+                        ...availability.map(({ from, to }) => ({ after: from, before: to })),
+                      ]}
                       onSelect={(newDate) => {
                         // Store the previous date to compare
                         const prevFrom = date?.from
