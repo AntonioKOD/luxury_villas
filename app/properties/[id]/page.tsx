@@ -31,22 +31,11 @@ import { Map } from "@/components/map"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
-async function getUser() {
-  try {
-    const res = await fetch("/api/accounts/me", { credentials: "include" })
-    const data = await res.json()
-    // Expecting the API to return an object with a "user" property if logged in
-    return data && data.user ? data : null
-  } catch (error) {
-    console.error("Error fetching user:", error)
-    return null
-  }
-}
 
 export default function Property() {
   const { id } = useParams() as { id: string | string[] }
   const [property, setProperty] = useState<(JsonObject & TypeWithID) | null>(null)
-  const [user, setUser] = useState(null)
+ 
   const [activeTab, setActiveTab] = useState("overview")
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -55,7 +44,7 @@ export default function Property() {
     if (typeof id === "string") {
       getProperty(id).then((property) => setProperty(property))
     }
-    getUser().then((fetchedUser) => setUser(fetchedUser))
+
 
     // Add scroll listener for header effect
     const handleScroll = () => {
@@ -112,19 +101,11 @@ export default function Property() {
                   {propertyDetails.location}
                 </Badge>
               </div>
-              {user ? (
                 <Link href={`/properties/${id}/book-property`}>
                   <Button size="sm" className="rounded-full px-4">
                     Book Now
                   </Button>
                 </Link>
-              ) : (
-                <Link href="/login">
-                  <Button size="sm" className="rounded-full px-4">
-                    Sign in to Book
-                  </Button>
-                </Link>
-              )}
             </div>
           </motion.div>
         )}
