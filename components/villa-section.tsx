@@ -269,6 +269,16 @@ export default function Villas() {
                               View More Details <ArrowRight className="h-4 w-4" />
                             </motion.button>
                           </Link>
+
+                          <Link href={`/properties/${property.id}/book-property`} className="block">
+                            <motion.button
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.98 }}
+                              className="w-full py-4 px-6 bg-secondary text-secondary-foreground rounded-xl flex items-center justify-center gap-2 shadow-sm hover:bg-secondary/90 transition-colors"
+                            >
+                              Book Now <ArrowRight className="h-4 w-4" />
+                            </motion.button>
+                          </Link>
                         </div>
                       </div>
 

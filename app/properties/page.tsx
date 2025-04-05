@@ -223,6 +223,11 @@ export default function VillasPage() {
                   View Villa <ChevronRight className="h-4 w-4" />
                 </Button>
                 </Link>
+                <Link href={`/properties/${secondProperty?.id}/book-property`}>
+                <Button className="gap-2 rounded-full bg-[#3a7e8c] px-6 hover:bg-[#2c6270]">
+                  Book Now <ChevronRight className="h-4 w-4" />
+                </Button>
+                </Link>
               </div>
             </div>
           </div>
