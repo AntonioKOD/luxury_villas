@@ -7,7 +7,7 @@ import Villas from "@/components/villa-section";
 export default function Home() {
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Hero/>
       <ContentSection/>
       <div className="villas">
