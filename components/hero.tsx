@@ -32,7 +32,7 @@ export default function Hero(){
             transition={{duration: 1.5}}
             className='text-background text-2xl text-center top-1/2 mt-82 mb-10'>
                 Exclusive villas with charming views <br/>
-                The villa of you dreams awaits <br/>
+                The villa of you dreams <br/>
                 Priority dates tailored for you <br/>
                 Make your dream getaway a reality
             </motion.p>
