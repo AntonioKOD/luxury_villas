@@ -105,7 +105,7 @@ export const sendContactEmail = async (contactDetails: ContactDetails): Promise<
     // Use the Resend library to send the email
     const data = await resend.emails.send({
       from: "Gjovana's Villas <info@gjovanasvillas.com>",
-      to: "antoniokodheli8@gmail.com", // Your email address to receive contact form submissions
+      to: ["info@gjovanasvillas.com", 'antoniokodheli8@gmail.com'], // Your email address to receive contact form submissions
       replyTo: email,
       subject: `New Contact Form Submission: ${subject}`,
       html: emailContent,

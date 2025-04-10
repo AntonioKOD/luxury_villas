@@ -197,11 +197,11 @@ export default function ContactPage() {
                     <Phone className="h-5 w-5 text-secondary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium text-foreground mb-1">Call Us</h3>
+                    <h3 className="text-lg font-medium text-foreground mb-1">Call Us on Whatsapp</h3>
                     <p className="text-muted-foreground mb-1">Available 7 days a week, 9am-8pm (GMT+3):</p>
-                    <a href="tel:+302810123456" className="text-foreground hover:text-primary">
-                      +30 2810 123 456
-                    </a>
+                    <p className="text-foreground hover:text-primary">
+                      +1 (617) 372-1232
+                    </p>
                   </div>
                 </div>
 
