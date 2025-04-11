@@ -195,7 +195,7 @@ export default function Property() {
                 <div>
                   <h3 className="text-2xl font-semibold mb-5">Highlights</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {["Private pool", "Ocean view", "Daily cleaning", "Free WiFi"].map((highlight, index) => (
+                    {["Private pool", "Ocean view", "Free WiFi"].map((highlight, index) => (
                       <div
                         key={index}
                         className="flex items-center gap-3 p-4 rounded-lg border bg-card/50 hover:bg-card transition-colors"
@@ -379,10 +379,6 @@ export default function Property() {
             <div className="sticky top-24">
               <div className="rounded-xl border overflow-hidden bg-card">
                 <div className="p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <div className="text-2xl font-semibold">€{propertyDetails.price}</div>
-                    <div className="text-sm text-muted-foreground">per night</div>
-                  </div>
 
                   <div className="flex items-center gap-1 mb-6">
                     <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
@@ -406,13 +402,11 @@ export default function Property() {
                   services for your stay.
                 </p>
                 <div className="grid gap-3">
+                  <Link href={"/contact"}>
                   <Button variant="outline" className="w-full">
                     Contact Us
                   </Button>
-                  <Button variant="ghost" className="w-full flex items-center justify-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    Request a Tour
-                  </Button>
+                  </Link>
                 </div>
               </div>
 

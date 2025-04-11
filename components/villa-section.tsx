@@ -246,12 +246,6 @@ export default function Villas() {
                               </div>
                               <div className="flex items-center gap-3 p-3 rounded-lg border border-border">
                                 <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
-                                  <Users className="h-4 w-4 text-secondary" />
-                                </div>
-                                <span className="text-foreground">Daily cleaning</span>
-                              </div>
-                              <div className="flex items-center gap-3 p-3 rounded-lg border border-border">
-                                <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
                                   <Wifi className="h-4 w-4 text-primary" />
                                 </div>
                                 <span className="text-foreground">Free WiFi</span>

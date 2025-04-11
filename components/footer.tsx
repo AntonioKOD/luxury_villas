@@ -81,7 +81,7 @@ export default function Footer() {
               Svoronata, Greece
             </address>
             <p className="mt-4 text-muted-foreground">
-              <strong>Phone:</strong> (123) 456-7890
+              <strong>Whatsapp:</strong> +1 (617) 372-1232
             </p>
             <p className="text-muted-foreground">
               <strong>Email:</strong> info@gjovanasvillas.com

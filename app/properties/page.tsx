@@ -97,12 +97,13 @@ export default function VillasPage() {
                   <span className="text-sm">Available Year-Round</span>
                 </div>
               </div>
-
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-2xl font-light">
-                    €{firstProperty?.price}<span className="text-sm text-[#5a5a5a]">/night</span>
-                  </p>
+              <div>
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent"></div>
+                          <div className="absolute bottom-6 left-6 bg-card/90 backdrop-blur-sm px-4 py-2 rounded-lg">
+                            <p className="text-foreground font-medium">
+                              Starting from <span className="text-xl text-primary">€{firstProperty?.price}</span>
+                              <span className="text-sm">/night</span>
+                            </p>
                 </div>
                 <Link href={`/properties/${firstProperty?.id}`}>
                 <Button className="gap-2 rounded-full bg-[#3a7e8c] px-6 hover:bg-[#2c6270]">
@@ -213,10 +214,12 @@ export default function VillasPage() {
               </div>
 
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-2xl font-light">
-                    €{secondProperty?.price}<span className="text-sm text-[#5a5a5a]">/night</span>
-                  </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent"></div>
+                          <div className="absolute bottom-6 left-6 bg-card/90 backdrop-blur-sm px-4 py-2 rounded-lg">
+                            <p className="text-foreground font-medium">
+                              Starting from <span className="text-xl text-primary">€{secondProperty?.price}</span>
+                              <span className="text-sm">/night</span>
+                            </p>
                 </div>
                 <Link href={`/properties/${secondProperty?.id}`}>
                 <Button className="gap-2 rounded-full bg-[#3a7e8c] px-6 hover:bg-[#2c6270]">
