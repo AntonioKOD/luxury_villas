@@ -1,12 +1,12 @@
-import type { CollectionConfig } from "payload";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { CollectionConfig } from 'payload';
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
 
 export const Properties: CollectionConfig = {
   slug: 'properties',
   access: {
     read: () => true,
-  update: () => true,},
-
+    update: () => true,
+  },
   fields: [
     {
       name: 'name',
@@ -48,7 +48,7 @@ export const Properties: CollectionConfig = {
             { label: 'Bedroom 2', value: 'bedroom 2' },
             { label: 'Bedroom 3', value: 'bedroom 3' },
             { label: 'Bathroom 1', value: 'bathroom 1' },
-            { label: 'Bathroom 2', value: 'bathroom 2'},
+            { label: 'Bathroom 2', value: 'bathroom 2' },
             { label: 'Outdoor', value: 'outdoor' },
           ],
           required: true,
@@ -62,9 +62,55 @@ export const Properties: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'price',
-      type: 'number',
+      name: 'stripeProductId',
+      type: 'text',
+      admin: {
+        description: 'Stripe Product ID (enter manually)',
+      },
       required: true,
+    },
+    {
+      name: 'seasonalPrices',
+      label: 'Monthly Prices',
+      type: 'array',
+      minRows: 1,
+      fields: [
+        {
+          name: 'month',
+          label: 'Month',
+          type: 'select',
+          options: [
+            { label: 'January', value: '1' },
+            { label: 'February', value: '2' },
+            { label: 'March', value: '3' },
+            { label: 'April', value: '4' },
+            { label: 'May', value: '5' },
+            { label: 'June', value: '6' },
+            { label: 'July', value: '7' },
+            { label: 'August', value: '8' },
+            { label: 'September', value: '9' },
+            { label: 'October', value: '10' },
+            { label: 'November', value: '11' },
+            { label: 'December', value: '12' },
+          ],
+          required: true,
+        },
+        {
+          name: 'price',
+          label: 'Price (USD)',
+          type: 'number',
+          required: true,
+        },
+        {
+          name: 'priceId',
+          label: 'Stripe Price ID',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Manually paste the Stripe Price ID for this month',
+          },
+        },
+      ],
     },
     {
       name: 'bedrooms',
@@ -114,16 +160,8 @@ export const Properties: CollectionConfig = {
           type: 'date',
           required: true,
           label: 'To',
-        }
-      ]
+        },
+      ],
     },
-  {
-    name: 'priceId',
-    type: 'text',
-    admin: {
-      description: 'Stripe Price ID for this property',
-    },
-    required: true,
-  }
   ],
 };
