@@ -62,14 +62,6 @@ export const Properties: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'stripeProductId',
-      type: 'text',
-      admin: {
-        description: 'Stripe Product ID (enter manually)',
-      },
-      required: true,
-    },
-    {
       name: 'seasonalPrices',
       label: 'Monthly Prices',
       type: 'array',

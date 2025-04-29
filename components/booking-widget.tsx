@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -16,8 +17,14 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { addDays, format } from "date-fns";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { DatePicker } from "./date-range-picker"; // your custom DatePicker
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { DatePicker } from "./date-range-picker";
 import type { DateRange } from "react-day-picker";
 import { getAvailability } from "@/actions";
 import { Input } from "@/components/ui/input";
@@ -31,20 +38,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 interface BookingWidgetProps {
-  price: number;
   propertyId: string;
-  priceId: string;
   success_url: string;
   cancel_url: string;
 }
 
 export default function BookingWidget({
-  price,
   propertyId,
-  priceId,
   success_url,
   cancel_url,
 }: BookingWidgetProps) {
@@ -54,31 +59,64 @@ export default function BookingWidget({
     to: addDays(today, 1),
   });
   const [guests, setGuests] = useState("2");
+
+  // Unavailable date ranges from your backend
   const [availability, setAvailability] = useState<{ from: Date; to: Date }[]>([]);
+
+  // Seasonal prices (month, price, priceId) from your CMS
+  const [seasonalPrices, setSeasonalPrices] = useState<
+    { month: string; price: number; priceId: string }[]
+  >([]);
+  const [unitPrice, setUnitPrice] = useState(0);
+  const [unitPriceId, setUnitPriceId] = useState("");
+
   const [guestName, setGuestName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [datePickerOpen, setDatePickerOpen] = useState(false);
   const datePickerRef = useRef<HTMLDivElement>(null);
-  const [selectionState, setSelectionState] = useState<"start" | "end" | "complete">("start");
+  const [selectionState, setSelectionState] = useState<
+    "start" | "end" | "complete"
+  >("start");
 
-  // Fetch unavailable ranges from API
+  // Fetch unavailable date ranges
   useEffect(() => {
     async function fetchAvailability() {
       const result = await getAvailability(propertyId);
       if (Array.isArray(result.availability)) {
-        // Map API ranges directly to disabled windows
-        const unavailable = result.availability.map((u) => ({
-          from: new Date(u.from),
-          to: new Date(u.to),
-        }));
-        setAvailability(unavailable);
+        setAvailability(
+          result.availability.map((u) => ({
+            from: new Date(u.from),
+            to: new Date(u.to),
+          }))
+        );
       }
     }
     fetchAvailability();
   }, [propertyId]);
 
-  // Close picker on outside click
+  // Fetch seasonalPrices from your CMS
+  useEffect(() => {
+    async function loadPrices() {
+      const res = await fetch(`/api/properties/${propertyId}`);
+      const prop = await res.json();
+      setSeasonalPrices(prop.seasonalPrices || []);
+    }
+    loadPrices();
+  }, [propertyId]);
+
+  // Update unitPrice and unitPriceId when the check-in month changes
+  useEffect(() => {
+    if (!date.from) return;
+    const monthValue = (date.from.getMonth() + 1).toString();
+    const season = seasonalPrices.find((p) => p.month === monthValue);
+    if (season) {
+      setUnitPrice(season.price);
+      setUnitPriceId(season.priceId);
+    }
+  }, [date.from, seasonalPrices]);
+
+  // Close date picker on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -91,16 +129,17 @@ export default function BookingWidget({
     }
     if (datePickerOpen) {
       document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [datePickerOpen]);
 
-  // Nights and pricing
+  // Calculate nights and fees
   const nights =
     date.from && date.to
       ? Math.ceil((date.to.getTime() - date.from.getTime()) / 86400000)
       : 0;
-  const subtotal = price * nights;
+  const subtotal = unitPrice * nights;
   const serviceFee = subtotal * 0.12;
   const cleaningFee = 50;
   const total = subtotal + serviceFee + cleaningFee;
@@ -112,6 +151,7 @@ export default function BookingWidget({
       return;
     }
     setIsLoading(true);
+
     try {
       const bookingData = {
         propertyId,
@@ -120,22 +160,32 @@ export default function BookingWidget({
         guests,
         guestName,
         email,
+        unitPrice,
         total,
       };
+
       const res = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          priceId,
+          propertyId,         // <— now passing propertyId
           quantity: nights,
           success_url,
           cancel_url,
           bookingData,
         }),
       });
-      const { sessionId } = await res.json();
+
+      const { sessionId, error: sessionError } = await res.json();
+      if (sessionError) {
+        console.error("Booking error:", sessionError);
+        setIsLoading(false);
+        return;
+      }
+
       const stripe = await stripePromise;
       const { error } = await stripe!.redirectToCheckout({ sessionId });
+
       if (error) {
         console.error("Stripe Error:", error);
         setIsLoading(false);
@@ -151,7 +201,7 @@ export default function BookingWidget({
       <CardHeader className="pb-4 bg-gradient-to-r from-primary/10 to-transparent">
         <div className="flex items-baseline justify-between">
           <div className="flex items-baseline">
-            <span className="text-3xl font-bold">${price}</span>
+            <span className="text-3xl font-bold">${unitPrice}</span>
             <span className="text-sm ml-1 text-muted-foreground">
               night
             </span>
@@ -168,7 +218,7 @@ export default function BookingWidget({
 
       <CardContent className="p-0">
         <div className="p-6 space-y-6">
-          {/* Guest info */}
+          {/* Guest Info */}
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="guest-name">Guest Name</Label>
@@ -191,7 +241,7 @@ export default function BookingWidget({
             </div>
           </div>
 
-          {/* Date picker */}
+          {/* Date Picker */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Label>Dates</Label>
@@ -231,7 +281,6 @@ export default function BookingWidget({
                       selected={date}
                       disabled={[
                         { before: today },
-                        // now only your API-driven windows
                         ...availability.map((win) => ({
                           from: win.from,
                           to: win.to,
@@ -240,8 +289,9 @@ export default function BookingWidget({
                       onSelect={(newDate) => {
                         const prevFrom = date.from;
                         const prevTo = date.to;
-                        setDate(newDate || { from: today, to: addDays(today, 1) });
-
+                        setDate(
+                          newDate || { from: today, to: addDays(today, 1) }
+                        );
                         if (!newDate) {
                           setSelectionState("start");
                         } else if (!prevFrom && newDate.from && !newDate.to) {
@@ -285,14 +335,14 @@ export default function BookingWidget({
           </div>
         </div>
 
-        {/* Price breakdown */}
+        {/* Price Breakdown */}
         {nights > 0 && (
           <div className="bg-muted/30 p-6 space-y-3">
             <h3 className="font-medium">Price Details</h3>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <div className="flex items-center">
-                  ${price} × {nights} nights
+                  ${unitPrice} × {nights} nights
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger>
@@ -351,7 +401,13 @@ export default function BookingWidget({
         <Button
           className="w-full h-12 text-base font-medium"
           size="lg"
-          disabled={!date.from || !date.to || !guestName || !email || isLoading}
+          disabled={
+            !date.from ||
+            !date.to ||
+            !guestName ||
+            !email ||
+            isLoading
+          }
           onClick={handleBookNow}
         >
           {isLoading ? (
@@ -373,20 +429,16 @@ export default function BookingWidget({
                 <path
                   className="opacity-75"
                   fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962
-                   7.962 0 014 12H0c0 3.042 1.135 
-                   5.824 3 7.938l3-2.647z"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 />
               </svg>
               Processing...
             </span>
-          ) : date.from && date.to ? (
+          ) : (
             <span className="flex items-center">
               <CreditCard className="mr-2 h-5 w-5" />
               Reserve Now
             </span>
-          ) : (
-            "Select dates"
           )}
         </Button>
         <div className="flex items-center justify-center text-sm text-muted-foreground gap-1.5">

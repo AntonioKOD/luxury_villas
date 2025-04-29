@@ -165,7 +165,7 @@ export default function Villas() {
                           <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent"></div>
                           <div className="absolute bottom-6 left-6 bg-card/90 backdrop-blur-sm px-4 py-2 rounded-lg">
                             <p className="text-foreground font-medium">
-                              Starting from <span className="text-xl text-primary">€{property?.price}</span>
+                              Starting from <span className="text-xl text-primary">€251</span>
                               <span className="text-sm">/night</span>
                             </p>
                           </div>

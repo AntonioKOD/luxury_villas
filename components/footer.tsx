@@ -92,7 +92,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} GJOVANA&apos;S VILLAS. All rights reserved.| Designed by{" "} <Link href='https://codewithtoni.com' className="font-bold underline">codeWithToni</Link>
+            &copy; {new Date().getFullYear()} GJOVANA&apos;S VILLAS. All rights reserved.| Designed by{" "} <Link href='https://buildquick.io' className="font-bold underline">BuildQuick</Link>
           </p>
           <div className="flex items-center">
             <button

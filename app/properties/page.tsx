@@ -1,29 +1,25 @@
-'use client'
+"use client"
 import Image from "next/image"
 import { MapPin, Calendar, Users, Wifi, PocketIcon as Pool, Star, ChevronRight } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { getProperties } from "@/actions"
-import { JsonObject, TypeWithID } from "payload"
+import type { JsonObject, TypeWithID } from "payload"
 import Link from "next/link"
 
-
-
-
 export default function VillasPage() {
-    const [properties, setProperties] = useState<(JsonObject & TypeWithID)[]>([])
-    
-    useEffect(() => {
-        const fetchProperties = async () => {
-            const properties = await getProperties()
-            setProperties(properties)
-            
-        }
-        fetchProperties()
-    }, [])
-    const firstProperty = properties[0]
-    const secondProperty = properties[1]
+  const [properties, setProperties] = useState<(JsonObject & TypeWithID)[]>([])
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      const properties = await getProperties()
+      setProperties(properties)
+    }
+    fetchProperties()
+  }, [])
+  const firstProperty = properties[0]
+  const secondProperty = properties[1]
   return (
     <div className="relative bg-[#f8f7f4] text-[#2a2a2a]">
       {/* Decorative elements */}
@@ -37,8 +33,7 @@ export default function VillasPage() {
             Gjovana&apos;s <span className="italic text-[#3a7e8c]">Luxury</span> Villas
           </h1>
           <p className="mt-6 text-lg font-light leading-relaxed text-[#5a5a5a] md:text-xl">
-            Experience the authentic beauty of Kefalonia with our carefully curated collection of luxury
-            accommodations.
+            Experience the authentic beauty of Kefalonia with our carefully curated collection of luxury accommodations.
           </p>
         </div>
 
@@ -61,7 +56,7 @@ export default function VillasPage() {
             </div>
 
             {/* Overlapping info box */}
-            <div className="relative mx-4 -mt-24 rounded-xl bg-white p-8 shadow-xl md:absolute md:bottom-12 md:left-12 md:mt-0 md:max-w-md">
+            <div className="relative mx-4 -mt-24 rounded-xl bg-white p-6 shadow-xl md:absolute md:bottom-12 md:left-12 md:mt-0 md:max-w-sm">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="font-serif text-3xl font-light">{firstProperty?.name}</h2>
                 <div className="flex items-center gap-1.5 rounded-full bg-[#f8f7f4] px-3 py-1">
@@ -75,11 +70,12 @@ export default function VillasPage() {
                 <span className="text-sm">{firstProperty?.address}</span>
               </div>
 
-              <p className="mb-6 text-[#5a5a5a]">
-              Welcome to Luxury Villa Gjovana&apos;s 1, a contemporary retreat featuring elegant architecture and polished concrete finishes. The villa offers an airy open-plan living, dining, and kitchen area, along with three stylish bedrooms, two with en-suite wet room showers.
+              <p className="mb-6 text-[#5a5a5a] text-sm">
+                Welcome to Luxury Villa Gjovana&apos;s 1, a contemporary retreat featuring elegant architecture and
+                polished concrete finishes with three stylish bedrooms.
               </p>
 
-              <div className="mb-6 grid grid-cols-2 gap-y-4">
+              <div className="mb-4 grid grid-cols-2 gap-y-2 text-xs">
                 <div className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-[#3a7e8c]" />
                   <span className="text-sm">6 Guests</span>
@@ -98,18 +94,32 @@ export default function VillasPage() {
                 </div>
               </div>
               <div>
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent"></div>
-                          <div className="absolute bottom-6 left-6 bg-card/90 backdrop-blur-sm px-4 py-2 rounded-lg">
-                            <p className="text-foreground font-medium">
-                              Starting from <span className="text-xl text-primary">€{firstProperty?.price}</span>
-                              <span className="text-sm">/night</span>
-                            </p>
+                <div className="mb-4 bg-[#f8f7f4] p-2 rounded-lg">
+                  <p className="text-[#5a5a5a] text-xs">Starting from</p>
+                  <p className="text-[#3a7e8c] font-serif text-xl font-medium">
+                    €251<span className="text-xs font-normal">/night</span>
+                  </p>
                 </div>
-                <Link href={`/properties/${firstProperty?.id}`}>
-                <Button className="gap-2 rounded-full bg-[#3a7e8c] px-6 hover:bg-[#2c6270]">
-                  View Villa <ChevronRight className="h-4 w-4" />
-                </Button>
-                </Link>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <Link
+                    href={`/properties/${firstProperty?.id}`}
+                    className="inline-flex items-center text-[#3a7e8c] hover:text-[#2c6270] transition-colors"
+                  >
+                    <span className="border-b border-[#3a7e8c] pb-0.5">View Details</span>
+                    <ChevronRight className="h-4 w-4 ml-1" />
+                  </Link>
+
+                  <Link href={`/properties/${firstProperty?.id}/book-property`} className="sm:ml-auto">
+                    <Button className="w-full sm:w-auto relative overflow-hidden group rounded-full bg-[#3a7e8c] px-6 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-[#2c6270] hover:shadow-xl">
+                      <span className="relative z-10 flex items-center justify-center">
+                        Book Now
+                        <ChevronRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
+                      </span>
+                      <span className="absolute inset-0 bg-gradient-to-r from-[#3a7e8c] to-[#2c6270] opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -176,7 +186,7 @@ export default function VillasPage() {
             </div>
 
             {/* Overlapping info box */}
-            <div className="relative mx-4 -mt-24 rounded-xl bg-white p-8 shadow-xl md:absolute md:bottom-12 md:right-12 md:mt-0 md:max-w-md">
+            <div className="relative mx-4 -mt-24 rounded-xl bg-white p-6 shadow-xl md:absolute md:bottom-12 md:right-12 md:mt-0 md:max-w-sm">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="font-serif text-3xl font-light">{secondProperty?.name}</h2>
                 <div className="flex items-center gap-1.5 rounded-full bg-[#f8f7f4] px-3 py-1">
@@ -190,11 +200,12 @@ export default function VillasPage() {
                 <span className="text-sm">{secondProperty?.address}</span>
               </div>
 
-              <p className="mb-6 text-[#5a5a5a]">
-              Welcome to Luxury Villa Gjovana&apos;s 2, a modern retreat nestled in the charming village of Svoronata, Greece. This brand-new villa offers a serene escape, allowing guests to relax and enjoy their holiday in a stylish and contemporary setting.
+              <p className="mb-6 text-[#5a5a5a] text-sm">
+                Welcome to Luxury Villa Gjovana&apos;s 2, a modern retreat nestled in the charming village of Svoronata,
+                Greece. This brand-new villa offers a serene escape.
               </p>
 
-              <div className="mb-6 grid grid-cols-2 gap-y-4">
+              <div className="mb-4 grid grid-cols-2 gap-y-2 text-xs">
                 <div className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-[#3a7e8c]" />
                   <span className="text-sm">6 Guests</span>
@@ -213,24 +224,33 @@ export default function VillasPage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent"></div>
-                          <div className="absolute bottom-6 left-6 bg-card/90 backdrop-blur-sm px-4 py-2 rounded-lg">
-                            <p className="text-foreground font-medium">
-                              Starting from <span className="text-xl text-primary">€{secondProperty?.price}</span>
-                              <span className="text-sm">/night</span>
-                            </p>
+              <div>
+                <div className="mb-4 bg-[#f8f7f4] p-2 rounded-lg">
+                  <p className="text-[#5a5a5a] text-xs">Starting from</p>
+                  <p className="text-[#3a7e8c] font-serif text-xl font-medium">
+                    €251<span className="text-xs font-normal">/night</span>
+                  </p>
                 </div>
-                <Link href={`/properties/${secondProperty?.id}`}>
-                <Button className="gap-2 rounded-full bg-[#3a7e8c] px-6 hover:bg-[#2c6270]">
-                  View Villa <ChevronRight className="h-4 w-4" />
-                </Button>
-                </Link>
-                <Link href={`/properties/${secondProperty?.id}/book-property`}>
-                <Button className="gap-2 rounded-full bg-[#3a7e8c] px-6 hover:bg-[#2c6270]">
-                  Book Now <ChevronRight className="h-4 w-4" />
-                </Button>
-                </Link>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <Link
+                    href={`/properties/${secondProperty?.id}`}
+                    className="inline-flex items-center text-[#3a7e8c] hover:text-[#2c6270] transition-colors"
+                  >
+                    <span className="border-b border-[#3a7e8c] pb-0.5">View Details</span>
+                    <ChevronRight className="h-4 w-4 ml-1" />
+                  </Link>
+
+                  <Link href={`/properties/${secondProperty?.id}/book-property`} className="sm:ml-auto">
+                    <Button className="w-full sm:w-auto relative overflow-hidden group rounded-full bg-[#3a7e8c] px-6 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-[#2c6270] hover:shadow-xl">
+                      <span className="relative z-10 flex items-center justify-center">
+                        Book Now
+                        <ChevronRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
+                      </span>
+                      <span className="absolute inset-0 bg-gradient-to-r from-[#3a7e8c] to-[#2c6270] opacity-0 transition-opacity group-hover:opacity-100"></span>
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -241,7 +261,9 @@ export default function VillasPage() {
           <div className="mb-16 max-w-xl">
             <h2 className="font-serif text-4xl font-light md:text-5xl">Elegant Kefalonian Retreat</h2>
             <p className="mt-4 text-lg font-light text-[#5a5a5a]">
-            Experience the charm of Greece at Gjovana&apos;s Luxury Villas in Kefalonia. Our villas are more than just a place to stay—they are a gateway into the island&apos;s rich heritage blended with refined, modern comfort.
+              Experience the charm of Greece at Gjovana&apos;s Luxury Villas in Kefalonia. Our villas are more than just
+              a place to stay—they are a gateway into the island&apos;s rich heritage blended with refined, modern
+              comfort.
             </p>
           </div>
 
@@ -274,7 +296,9 @@ export default function VillasPage() {
                 </div>
                 <h3 className="mb-3 font-serif text-xl font-medium">Prime Island Settings</h3>
                 <p className="text-[#5a5a5a]">
-                Both villas in our collection are meticulously selected for their unmatched location on the enchanting island of Kefalonia. Enjoy complete privacy, breathtaking vistas, and seamless access to local cultural treasures.
+                  Both villas in our collection are meticulously selected for their unmatched location on the enchanting
+                  island of Kefalonia. Enjoy complete privacy, breathtaking vistas, and seamless access to local
+                  cultural treasures.
                 </p>
               </div>
             </div>
@@ -307,7 +331,9 @@ export default function VillasPage() {
                 </div>
                 <h3 className="mb-3 font-serif text-xl font-medium">Heritage Meets Luxury</h3>
                 <p className="text-[#5a5a5a]">
-                Discover a perfect blend of traditional Kefalonian architecture and contemporary elegance. Our villas celebrate the island’s storied past while offering modern amenities for an experience that is as authentic as it is luxurious.
+                  Discover a perfect blend of traditional Kefalonian architecture and contemporary elegance. Our villas
+                  celebrate the island&apos;s storied past while offering modern amenities for an experience that is as
+                  authentic as it is luxurious.
                 </p>
               </div>
             </div>
@@ -317,4 +343,3 @@ export default function VillasPage() {
     </div>
   )
 }
-

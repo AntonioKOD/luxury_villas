@@ -397,10 +397,6 @@ export default function Property() {
 
               <div className="mt-6 p-6 rounded-xl border bg-card/50">
                 <h3 className="font-medium mb-3">Need assistance?</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Our concierge team is available 24/7 to help with any questions about this villa or to arrange special
-                  services for your stay.
-                </p>
                 <div className="grid gap-3">
                   <Link href={"/contact"}>
                   <Button variant="outline" className="w-full">
