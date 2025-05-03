@@ -18,7 +18,7 @@ export default function ContentSection() {
                 transition={{duration: 1.5}}
                  className='text-center text-3xl text-foreground mt-10 flex'>
                  Welcome to our exclusive luxury villas in Kefalonia, Greece. Nestled amidst the island&apos;s 
-                 breathtaking landscapes, our two distinctive villsa offer unparalleled comfort, 
+                 breathtaking landscapes, our two distinctive villas offer unparalleled comfort, 
                  privacy, and elegance for your Mediterranean escape.   
                 </motion.p>
             </div>
