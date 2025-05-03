@@ -142,7 +142,7 @@ export default function BookingWidget({
   const subtotal = unitPrice * nights;
   const serviceFee = subtotal * 0.12;
   const cleaningFee = 50;
-  const total = subtotal + serviceFee + cleaningFee;
+  const total = subtotal + cleaningFee;
 
   // Booking handler
   const handleBookNow = async () => {
@@ -201,7 +201,7 @@ export default function BookingWidget({
       <CardHeader className="pb-4 bg-gradient-to-r from-primary/10 to-transparent">
         <div className="flex items-baseline justify-between">
           <div className="flex items-baseline">
-            <span className="text-3xl font-bold">${unitPrice}</span>
+            <span className="text-3xl font-bold">€{unitPrice}</span>
             <span className="text-sm ml-1 text-muted-foreground">
               night
             </span>
@@ -366,28 +366,12 @@ export default function BookingWidget({
                     </Tooltip>
                   </TooltipProvider>
                 </div>
-                <span>${cleaningFee}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <div className="flex items-center">
-                  Service fee
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Info className="h-3.5 w-3.5 ml-1 text-muted-foreground" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        Helps us run our platform
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-                <span>${serviceFee.toFixed(0)}</span>
+                <span>€{cleaningFee}</span>
               </div>
               <Separator className="my-2" />
               <div className="flex justify-between font-medium">
                 <span>Total</span>
-                <span>${total.toFixed(0)}</span>
+                <span>€{total.toFixed(0)}</span>
               </div>
               <div className="text-xs text-right text-muted-foreground">
                 Taxes calculated at checkout
@@ -443,7 +427,7 @@ export default function BookingWidget({
         </Button>
         <div className="flex items-center justify-center text-sm text-muted-foreground gap-1.5">
           <CheckCircle2 className="h-4 w-4 text-green-500" />
-          <span>You won’t be charged yet</span>
+          <span>You won&apos;t be charged yet</span>
         </div>
         <div className="text-xs text-center text-muted-foreground mt-2">
           By selecting above, you agree to our terms and cancellation policy.

@@ -90,6 +90,10 @@ export async function POST(req: Request) {
           price: season.priceId,
           quantity: Number(quantity),
         },
+        {
+          price: process.env.CLEANING_FEE_PRICE_ID,
+          quantity: 1,            // one cleaning fee charge
+        },
       ];
       // Test retrieve to catch “No such price” upfront
       if (!season.priceId) {
