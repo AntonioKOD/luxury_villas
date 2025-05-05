@@ -105,7 +105,7 @@ export default function PaymentRequiredPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
         className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-500 text-sm">
-            <Link href="https://buildquick.io" className="text-purple-600 hover:text-purple-800">
+            <Link href="https://codewithtoni.com" className="text-purple-600 hover:text-purple-800">
                 Created by Toni
             </Link>
       </motion.div>
