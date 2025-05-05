@@ -168,7 +168,7 @@ export default function BookingWidget({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          propertyId,         // <— now passing propertyId
+          propertyId,         
           quantity: nights,
           success_url,
           cancel_url,
