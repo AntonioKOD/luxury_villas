@@ -8,26 +8,11 @@ import Link from "next/link"
 
 export default function PaymentRequiredPage() {
   const [hover, setHover] = useState(false)
-  const [count, setCount] = useState(0)
+  
 
   // Fun messages that appear when clicking the sad developer
-  const messages = [
-    "Ouch! I'm hungry...",
-    "My coffee fund is empty!",
-    "Ramen again tonight?",
-    "Help a dev out!",
-    "Bills are piling up!",
-    "Need. Coffee. Now.",
-    "My cat needs premium food!",
-    "My keyboard needs new keycaps!",
-  ]
 
-  const [message, setMessage] = useState(messages[0])
 
-  const handleDeveloperClick = () => {
-    setCount(count + 1)
-    setMessage(messages[count % messages.length])
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-pink-100 flex flex-col items-center justify-center p-4 overflow-hidden relative" suppressHydrationWarning>
@@ -67,22 +52,12 @@ export default function PaymentRequiredPage() {
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            onClick={handleDeveloperClick}
             className="cursor-pointer relative"
           >
             <div className="relative bg-purple-100 rounded-full p-6">
               {hover ? <Smile className="h-16 w-16 text-yellow-500" /> : <Frown className="h-16 w-16 text-gray-500" />}
             </div>
 
-            {count > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute -top-10 left-0 right-0 bg-purple-800 text-white text-sm py-1 px-3 rounded-full text-center"
-              >
-                {message}
-              </motion.div>
-            )}
           </motion.div>
         </div>
 
@@ -123,6 +98,16 @@ export default function PaymentRequiredPage() {
             ))}
           </div>
         </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-500 text-sm">
+            <Link href="https://codewithtoni.com" className="text-purple-600 hover:text-purple-800">
+                Created by Toni
+            </Link>
       </motion.div>
     </div>
   )
