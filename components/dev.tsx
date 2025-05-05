@@ -124,15 +124,6 @@ export default function PaymentRequiredPage() {
           </div>
         </div>
       </motion.div>
-
-      <motion.p
-        className="text-purple-800 mt-8 text-sm font-medium"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-      >
-        This is just a fun demo page. No actual payment required!
-      </motion.p>
     </div>
   )
 }
