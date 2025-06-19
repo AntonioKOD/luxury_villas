@@ -2,9 +2,10 @@
 import {getPayload} from 'payload'
 import config from '@payload-config'
 
-const payload = await getPayload({config})
+
 
 export async function getProperties(){
+  const payload = await getPayload({config})
     const properties = await payload.find({
         collection: 'properties',
         depth: 2,
@@ -16,6 +17,7 @@ export async function getProperties(){
 
 
 export async function getProperty(slug: string){
+  const payload = await getPayload({config})
     const property = await payload.findByID({
         collection: 'properties',
         id: slug,
@@ -25,6 +27,7 @@ export async function getProperty(slug: string){
 }
 
 export async function getAvailability(slug: string){
+  const payload = await getPayload({config})
     const availability = await payload.findByID({
         collection: 'properties',
         id: slug,
@@ -45,6 +48,7 @@ interface BookingInput {
 
 export async function createBooking(data: BookingInput){
 
+  const payload = await getPayload({config})
     const booking = await payload.create({
         collection: 'bookings',
         data:{
@@ -69,6 +73,7 @@ interface SignupInput {
   
   export async function signupUser(data: SignupInput) {
     try {
+      const payload = await getPayload({config})
       const user = await payload.create({
         collection: 'accounts',
         data: {

@@ -72,7 +72,7 @@ export async function POST(request: Request) {
         email,
         checkInDate,
         checkOutDate,
-        status: 'PENDING',
+        status: 'CONFIRMED',
         property: propertyId,
       });
     } catch (err) {

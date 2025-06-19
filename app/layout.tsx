@@ -6,6 +6,7 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Exclusion from "@/components/Exclusion";
 import SuspenseWrapper from "@/components/SuspenseWrapper"; // our client component
+import Script from "next/script";
 
 
 const bodoni = Bodoni_Moda({
@@ -35,6 +36,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-SFN0Q6XJWT"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SFN0Q6XJWT');
+          `}
+        </Script>
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${bodoni.className} antialiased`}>
        <Exclusion>
           <Navbar />
