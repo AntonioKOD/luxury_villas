@@ -92,7 +92,7 @@ export default function VillasPage() {
             <div className="relative h-[500px] w-full overflow-hidden rounded-xl">
               <Image
                 unoptimized
-                src={firstProperty?.images[0]?.image?.url || "/placeholder.svg?height=1000&width=1500"}
+                src={firstProperty?.images?.[0]?.image?.url || "/placeholder.svg?height=1000&width=1500"}
                 alt="Gjovana's Luxury Villa 1 with sea view"
                 fill
                 className="object-cover transition-all duration-700 hover:scale-105"
@@ -179,7 +179,7 @@ export default function VillasPage() {
             <div className="relative h-[240px] overflow-hidden rounded-xl">
               <Image
                 unoptimized
-                src={firstProperty?.images[0]?.image?.url || "/placeholder.svg?height=600&width=800"}
+                src={firstProperty?.images?.[0]?.image?.url || "/placeholder.svg?height=600&width=800"}
                 alt="Villa Athena interior living room with sea view"
                 fill
                 className="object-cover transition-all duration-700 hover:scale-105"
@@ -188,7 +188,7 @@ export default function VillasPage() {
             <div className="relative h-[240px] overflow-hidden rounded-xl">
               <Image
                 unoptimized
-                src={firstProperty?.images[1]?.image?.url || "/placeholder.svg?height=600&width=800"}
+                src={firstProperty?.images?.[1]?.image?.url || "/placeholder.svg?height=600&width=800"}
                 alt="Villa Athena terrace with dining area"
                 fill
                 className="object-cover transition-all duration-700 hover:scale-105"
@@ -204,7 +204,7 @@ export default function VillasPage() {
             <div className="relative h-[240px] overflow-hidden rounded-xl">
               <Image
                 unoptimized
-                src={secondProperty?.images[1]?.image?.url || "/placeholder.svg?height=600&width=800"}
+                src={secondProperty?.images?.[1]?.image?.url || "/placeholder.svg?height=600&width=800"}
                 alt="Villa Poseidon interior bedroom with traditional Greek elements"
                 fill
                 className="object-cover transition-all duration-700 hover:scale-105"
@@ -213,7 +213,7 @@ export default function VillasPage() {
             <div className="relative h-[240px] overflow-hidden rounded-xl">
               <Image
                 unoptimized
-                src={secondProperty?.images[2]?.image?.url || "/placeholder.svg?height=600&width=800"}
+                src={secondProperty?.images?.[2]?.image?.url || "/placeholder.svg?height=600&width=800"}
                 alt="Villa Poseidon outdoor pool area"
                 fill
                 className="object-cover transition-all duration-700 hover:scale-105"
@@ -226,7 +226,7 @@ export default function VillasPage() {
             <div className="relative h-[500px] w-full overflow-hidden rounded-xl">
               <Image
                 unoptimized
-                src={secondProperty?.images[0]?.image?.url || "/placeholder.svg?height=1000&width=1500"}
+                src={secondProperty?.images?.[0]?.image?.url || "/placeholder.svg?height=1000&width=1500"}
                 alt="Villa Poseidon with traditional Greek architecture and sea views"
                 fill
                 className="object-cover transition-all duration-700 hover:scale-105"

@@ -214,7 +214,7 @@ export default function Villas() {
                 </div>
 
                 <p className="mt-3 text-muted-foreground text-sm hidden md:block">
-                  {limitWords(extractPlainText(property?.description), 15)}
+                  {limitWords(extractPlainText(property?.description as RichTextRoot | null | undefined), 15)}
                 </p>
               </div>
               );
@@ -272,7 +272,7 @@ export default function Villas() {
                             <span>{activeDoc?.address || "Greece"}</span>
                           </div>
                           <div className="prose max-w-none text-foreground">
-                            <p className="text-lg leading-relaxed">{extractPlainText(activeDoc.description)}</p>
+                            <p className="text-lg leading-relaxed">{extractPlainText(activeDoc.description as RichTextRoot | null | undefined)}</p>
                           </div>
                         </div>
 

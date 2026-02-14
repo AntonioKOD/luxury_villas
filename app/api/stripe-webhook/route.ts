@@ -33,7 +33,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required metadata' }, { status: 400 });
     }
 
-    let property: { availability?: Array<{ from: string; to: string }> };
+    type PropertyWithAvailability = { availability?: Array<{ from: string; to: string }> };
+    let property: PropertyWithAvailability;
     try {
       const payload = await getPayload({ config });
       const found = await payload.findByID({
@@ -45,7 +46,7 @@ export async function POST(request: Request) {
         console.error('Property not found for ID:', propertyId);
         return NextResponse.json({ error: 'Property not found' }, { status: 404 });
       }
-      property = found;
+      property = found as unknown as PropertyWithAvailability;
     } catch (err) {
       console.error('Error fetching property:', err);
       return NextResponse.json({ error: 'Failed to fetch property' }, { status: 500 });
