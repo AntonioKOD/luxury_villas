@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextResponse } from 'next/server';
 import { getPayload } from 'payload';
-import config from '@/payload.config'; // Make sure this path is correct
+import config from '@/payload.config';
 
-export async function POST(request: Request) {
+export async function POST() {
+  if (process.env.NODE_ENV !== 'development') {
+    return NextResponse.json({ error: 'Not Found' }, { status: 404 });
+  }
   console.log('⭐ Simple webhook test triggered');
   
   try {

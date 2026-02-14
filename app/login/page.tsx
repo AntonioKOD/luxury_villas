@@ -60,9 +60,8 @@ export default function LoginForm() {
       await loginUser(formData)
       // Redirect after successful login
       router.push("/")
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message || "Failed to login. Please check your credentials.")
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to login. Please check your credentials.")
     } finally {
       setIsLoading(false)
     }

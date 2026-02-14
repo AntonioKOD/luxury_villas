@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import type {CollectionConfig} from 'payload'
+import type { CollectionConfig } from 'payload'
 
 export const Accounts: CollectionConfig = {
     slug: 'accounts',
     auth: {
         tokenExpiration: 7200,
         verify: {
-            generateEmailHTML: ({ req, token, user }) => {
+            generateEmailHTML: ({ token, user }) => {
                 // Use the token provided to allow your user to verify their account
                 const url = `http://localhost:3000/verify?token=${token}`
         

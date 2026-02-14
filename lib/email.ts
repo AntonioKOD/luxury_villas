@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { resend } from "./resend"
 
 export type BookingDetails = {
@@ -22,7 +21,7 @@ function formatDate(dateString: string): string {
   })
 }
 
-export async function sendVerificationEmail(email: string, bookingDetails: BookingDetails): Promise<any> {
+export async function sendVerificationEmail(email: string, bookingDetails: BookingDetails): Promise<void> {
   const { guestName, checkInDate, checkOutDate } = bookingDetails
 
   // Format the dates
@@ -104,13 +103,12 @@ export async function sendVerificationEmail(email: string, bookingDetails: Booki
 
   try {
     // Use the Resend library to send the email
-    const data = await resend.emails.send({
+    await resend.emails.send({
       from: "Gjovana's Villas <info@gjovanasvillas.com>",
       to: email,
       subject: `Your Booking Confirmation - ${confirmationNumber}`,
       html: emailContent,
     })
-    return data
   } catch (error) {
     throw new Error(`Failed to send email: ${error}`)
   }

@@ -5,7 +5,7 @@ export const Properties: CollectionConfig = {
   slug: 'properties',
   access: {
     read: () => true,
-    update: () => true,
+    update: ({ req }) => Boolean(req.user),
   },
   fields: [
     {

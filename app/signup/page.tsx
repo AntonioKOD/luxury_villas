@@ -54,9 +54,8 @@ export default function SignupForm() {
       setTimeout(() => {
         router.push("/login")
       }, 2000)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message || "Something went wrong. Please try again.")
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
     } finally {
       setIsLoading(false)
     }

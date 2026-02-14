@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // app/properties/[id]/images/page.tsx
-import { getProperty } from "@/actions";
+import { getPropertyById } from "@/actions";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -12,23 +11,27 @@ interface PropertyImage {
 
 interface Property {
   images: PropertyImage[];
-  // include other property fields as needed
+}
+
+interface RawImageItem {
+  category?: string;
+  image?: { url?: string; alt?: string };
 }
 
 export default async function ImagesPage({ params }: { params: Promise<{ id: string }> }) {
-  const id =  (await params).id;
-  const rawProperty = await getProperty(id);
+  const id = (await params).id;
+  const rawProperty = await getPropertyById(id);
   const property: Property | null = rawProperty && Array.isArray(rawProperty.images)
     ? {
         ...rawProperty,
-        images: rawProperty.images.map((image: any) => ({
+        images: (rawProperty.images as RawImageItem[]).map((image) => ({
           category: image.category || "unknown",
           image: {
             url: image.image?.url || "",
             alt: image.image?.alt || "No description",
           },
         })),
-      } as Property
+      }
     : null;
 
   if (!property) {

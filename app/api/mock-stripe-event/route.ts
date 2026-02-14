@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
 import crypto from 'crypto';
+import { getServerEnv } from '@/lib/env';
 
-const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-02-24.acacia',
-});
-
-export async function GET(request: Request) {
+export async function GET() {
+  if (process.env.NODE_ENV !== 'development') {
+    return NextResponse.json({ error: 'Not Found' }, { status: 404 });
+  }
   try {
     // Create a mock checkout.session.completed event
     const mockEvent = {
@@ -35,8 +33,7 @@ export async function GET(request: Request) {
       type: 'checkout.session.completed'
     };
     
-    // Get the webhook secret
-    const webhookSecret = process.env.NEXT_STRIPE_WEBHOOK_SECRET;
+    const webhookSecret = getServerEnv().NEXT_STRIPE_WEBHOOK_SECRET;
     if (!webhookSecret) {
       return NextResponse.json({ error: 'Webhook secret not set' }, { status: 500 });
     }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { resend } from "./resend"
 
 export type ContactDetails = {
@@ -10,7 +9,7 @@ export type ContactDetails = {
 
 
 
-export const sendContactEmail = async (contactDetails: ContactDetails): Promise<any> => {
+export const sendContactEmail = async (contactDetails: ContactDetails): Promise<void> => {
   const { name, email, subject, message } = contactDetails
   const emailContent = `
     <!DOCTYPE html>
@@ -103,14 +102,13 @@ export const sendContactEmail = async (contactDetails: ContactDetails): Promise<
 
   try {
     // Use the Resend library to send the email
-    const data = await resend.emails.send({
+    await resend.emails.send({
       from: "Gjovana's Villas <info@gjovanasvillas.com>",
-      to: ["info@gjovanasvillas.com", 'antoniokodheli8@gmail.com'], // Your email address to receive contact form submissions
+      to: ["info@gjovanasvillas.com", 'antoniokodheli8@gmail.com'],
       replyTo: email,
       subject: `New Contact Form Submission: ${subject}`,
       html: emailContent,
     })
-    return data
   } catch (error) {
     throw new Error(`Failed to send email: ${error}`)
   }

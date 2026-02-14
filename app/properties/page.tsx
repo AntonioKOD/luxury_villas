@@ -1,25 +1,52 @@
 "use client"
 import Image from "next/image"
+import Link from "next/link"
 import { MapPin, Calendar, Users, Wifi, PocketIcon as Pool, Star, ChevronRight } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { getProperties } from "@/actions"
-import type { JsonObject, TypeWithID } from "payload"
-import Link from "next/link"
+import { getPropertyId } from "@/lib/property-utils"
+
+type PropertyItem = {
+  id: string
+  name?: string
+  address?: string
+  images?: Array<{ image?: { url?: string } }>
+  [key: string]: unknown
+}
 
 export default function VillasPage() {
-  const [properties, setProperties] = useState<(JsonObject & TypeWithID)[]>([])
+  const [properties, setProperties] = useState<PropertyItem[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchProperties = async () => {
-      const properties = await getProperties()
-      setProperties(properties)
+      setLoading(true)
+      setError(null)
+      try {
+        const res = await fetch("/api/properties")
+        if (!res.ok) {
+          setError("Could not load properties.")
+          setProperties([])
+          return
+        }
+        const data = await res.json()
+        setProperties(Array.isArray(data) ? data : [])
+      } catch {
+        setError("Could not load properties.")
+        setProperties([])
+      } finally {
+        setLoading(false)
+      }
     }
     fetchProperties()
   }, [])
+
   const firstProperty = properties[0]
   const secondProperty = properties[1]
+  const firstId = firstProperty ? getPropertyId(firstProperty as { id?: string; _id?: unknown }) : ""
+  const secondId = secondProperty ? getPropertyId(secondProperty as { id?: string; _id?: unknown }) : ""
+
   return (
     <div className="relative bg-[#f8f7f4] text-[#2a2a2a]">
       {/* Decorative elements */}
@@ -37,6 +64,28 @@ export default function VillasPage() {
           </p>
         </div>
 
+        {loading && (
+          <div className="flex flex-col items-center justify-center gap-4 py-24">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#3a7e8c] border-t-transparent" />
+            <p className="text-[#5a5a5a]">Loading properties…</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="flex flex-col items-center justify-center gap-4 py-24 text-center">
+            <p className="font-medium text-[#b91c1c]">{error}</p>
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="rounded-lg bg-[#3a7e8c] px-4 py-2 text-white hover:bg-[#2c6270]"
+            >
+              Try again
+            </button>
+          </div>
+        )}
+
+        {!loading && !error && (
+        <>
         {/* First villa - asymmetrical layout */}
         <div className="mb-32 grid gap-8 md:grid-cols-12">
           <div className="relative md:col-span-8 md:row-span-1">
@@ -103,21 +152,22 @@ export default function VillasPage() {
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                   <Link
-                    href={`/properties/${firstProperty?.id}`}
-                    className="inline-flex items-center text-[#3a7e8c] hover:text-[#2c6270] transition-colors"
+                    href={firstId ? `/properties/${firstId}` : "/properties"}
+                    className="inline-flex items-center text-[#3a7e8c] hover:text-[#2c6270] transition-colors bg-transparent border-0 cursor-pointer p-0 font-inherit no-underline"
                   >
                     <span className="border-b border-[#3a7e8c] pb-0.5">View Details</span>
                     <ChevronRight className="h-4 w-4 ml-1" />
                   </Link>
 
-                  <Link href={`/properties/${firstProperty?.id}/book-property`} className="sm:ml-auto">
-                    <Button className="w-full sm:w-auto relative overflow-hidden group rounded-full bg-[#3a7e8c] px-6 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-[#2c6270] hover:shadow-xl">
-                      <span className="relative z-10 flex items-center justify-center">
-                        Book Now
-                        <ChevronRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
-                      </span>
-                      <span className="absolute inset-0 bg-gradient-to-r from-[#3a7e8c] to-[#2c6270] opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    </Button>
+                  <Link
+                    href={firstId ? `/properties/${firstId}/book-property` : "/properties"}
+                    className="sm:ml-auto w-full sm:w-auto inline-flex items-center justify-center relative overflow-hidden group rounded-full bg-[#3a7e8c] px-6 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-[#2c6270] hover:shadow-xl cursor-pointer border-0 no-underline"
+                  >
+                    <span className="relative z-10 flex items-center justify-center">
+                      Book Now
+                      <ChevronRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    </span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-[#3a7e8c] to-[#2c6270] opacity-0 transition-opacity group-hover:opacity-100" />
                   </Link>
                 </div>
               </div>
@@ -234,21 +284,22 @@ export default function VillasPage() {
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                   <Link
-                    href={`/properties/${secondProperty?.id}`}
-                    className="inline-flex items-center text-[#3a7e8c] hover:text-[#2c6270] transition-colors"
+                    href={secondId ? `/properties/${secondId}` : "/properties"}
+                    className="inline-flex items-center text-[#3a7e8c] hover:text-[#2c6270] transition-colors bg-transparent border-0 cursor-pointer p-0 font-inherit no-underline"
                   >
                     <span className="border-b border-[#3a7e8c] pb-0.5">View Details</span>
                     <ChevronRight className="h-4 w-4 ml-1" />
                   </Link>
 
-                  <Link href={`/properties/${secondProperty?.id}/book-property`} className="sm:ml-auto">
-                    <Button className="w-full sm:w-auto relative overflow-hidden group rounded-full bg-[#3a7e8c] px-6 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-[#2c6270] hover:shadow-xl">
-                      <span className="relative z-10 flex items-center justify-center">
-                        Book Now
-                        <ChevronRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
-                      </span>
-                      <span className="absolute inset-0 bg-gradient-to-r from-[#3a7e8c] to-[#2c6270] opacity-0 transition-opacity group-hover:opacity-100"></span>
-                    </Button>
+                  <Link
+                    href={secondId ? `/properties/${secondId}/book-property` : "/properties"}
+                    className="sm:ml-auto w-full sm:w-auto inline-flex items-center justify-center relative overflow-hidden group rounded-full bg-[#3a7e8c] px-6 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-[#2c6270] hover:shadow-xl cursor-pointer border-0 no-underline"
+                  >
+                    <span className="relative z-10 flex items-center justify-center">
+                      Book Now
+                      <ChevronRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    </span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-[#3a7e8c] to-[#2c6270] opacity-0 transition-opacity group-hover:opacity-100" />
                   </Link>
                 </div>
               </div>
@@ -339,6 +390,8 @@ export default function VillasPage() {
             </div>
           </div>
         </div>
+        </>
+        )}
       </div>
     </div>
   )

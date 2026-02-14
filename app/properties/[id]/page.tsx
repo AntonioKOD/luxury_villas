@@ -1,7 +1,6 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { getProperty } from "@/actions"
 import { useEffect, useState } from "react"
 import type { JsonObject, TypeWithID } from "payload"
 import { RichText } from "@payloadcms/richtext-lexical/react"
@@ -28,31 +27,65 @@ import {
   Users,
 } from "lucide-react"
 import { Map } from "@/components/map"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-
+import { getPropertyId, isValidPropertyId } from "@/lib/property-utils"
 
 export default function Property() {
-  const { id } = useParams() as { id: string | string[] }
+  const params = useParams() as { id?: string | string[] }
+  const rawId = Array.isArray(params.id) ? params.id[0] : params.id
+  const id = typeof rawId === 'string' ? rawId.trim() : ''
   const [property, setProperty] = useState<(JsonObject & TypeWithID) | null>(null)
- 
+  const [notFound, setNotFound] = useState(false)
+
   const [activeTab, setActiveTab] = useState("overview")
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
-    if (!id) return
-    if (typeof id === "string") {
-      getProperty(id).then((property) => setProperty(property))
+    console.log('[Property page] id from params:', id, 'isValidPropertyId:', isValidPropertyId(id))
+    if (!id || !isValidPropertyId(id)) {
+      console.log('[Property page] invalid id, showing not found')
+      setNotFound(true)
+      return
     }
+    const url = `/api/properties/${encodeURIComponent(id)}`
+    console.log('[Property page] fetching:', url)
+    fetch(url)
+      .then((res) => {
+        console.log('[Property page] response status:', res.status, res.statusText, 'ok:', res.ok)
+        return res.ok ? res.json() : null
+      })
+      .then((result) => {
+        if (result == null) {
+          console.log('[Property page] no result (null or 404), showing not found')
+          setNotFound(true)
+        } else {
+          console.log('[Property page] property loaded, id:', result?.id ?? '(no id)')
+          setProperty(result)
+        }
+      })
+      .catch((err) => {
+        console.error('[Property page] fetch error:', err)
+        setNotFound(true)
+      })
 
-
-    // Add scroll listener for header effect
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 300)
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [id])
+
+  if (notFound) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-8">
+        <h1 className="text-2xl font-semibold">Property not found</h1>
+        <p className="text-muted-foreground">The property you’re looking for doesn’t exist or the link is invalid.</p>
+        <Link href="/properties" className="text-primary underline">
+          View all properties
+        </Link>
+      </div>
+    )
+  }
 
   if (!property) {
     return (
@@ -73,6 +106,8 @@ export default function Property() {
   }
 
   // Sample amenities for the demo
+  const propertyId = (getPropertyId(property) || id) ?? ""
+
   const amenities = [
     { name: "Private Pool", icon: <Waves className="h-5 w-5" /> },
     { name: "Air Conditioning", icon: <Wind className="h-5 w-5" /> },
@@ -101,10 +136,11 @@ export default function Property() {
                   {propertyDetails.location}
                 </Badge>
               </div>
-                <Link href={`/properties/${id}/book-property`}>
-                  <Button size="sm" className="rounded-full px-4">
-                    Book Now
-                  </Button>
+                <Link
+                  href={`/properties/${propertyId}/book-property`}
+                  className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                >
+                  Book Now
                 </Link>
             </div>
           </motion.div>
@@ -122,7 +158,7 @@ export default function Property() {
 
         <div className="relative h-full flex flex-col justify-end items-start p-8 md:p-16 max-w-7xl mx-auto">
           <Link
-            href={`/properties/${id}/images`}
+            href={`/properties/${propertyId}/images`}
             className="mb-4 text-white bg-black/30 hover:bg-black/50 transition px-4 py-2 rounded-full flex items-center text-sm group"
           >
             <Camera className="h-4 w-4 mr-2" />
@@ -387,10 +423,11 @@ export default function Property() {
                   </div>
 
                  
-                    <Link href={`/properties/${id}/book-property`} className="block w-full">
-                      <Button className="w-full rounded-lg py-6" size="lg">
-                        Book Now
-                      </Button>
+                    <Link
+                      href={`/properties/${propertyId}/book-property`}
+                      className="block w-full rounded-lg py-6 text-center font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                    >
+                      Book Now
                     </Link>
                 </div>
               </div>
@@ -398,10 +435,11 @@ export default function Property() {
               <div className="mt-6 p-6 rounded-xl border bg-card/50">
                 <h3 className="font-medium mb-3">Need assistance?</h3>
                 <div className="grid gap-3">
-                  <Link href={"/contact"}>
-                  <Button variant="outline" className="w-full">
+                  <Link
+                    href="/contact"
+                    className="flex w-full items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background hover:bg-accent hover:text-accent-foreground"
+                  >
                     Contact Us
-                  </Button>
                   </Link>
                 </div>
               </div>

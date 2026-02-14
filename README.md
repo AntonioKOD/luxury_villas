@@ -1,37 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gjovana's Villas
 
-## Getting Started
+A luxury villa booking site built with Next.js 15, Payload CMS (MongoDB), and Stripe for payments.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Property listings with images, seasonal pricing, and availability
+- Booking flow with Stripe Checkout and webhook-driven confirmation
+- Contact form and verification emails (Resend)
+- Payload CMS admin for properties, bookings, and media
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Prerequisites
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Node.js 18+
+- MongoDB instance
+- Stripe and Resend accounts (for payments and email)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Getting started
 
-## Learn More
+1. Clone the repo and install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Copy the example environment file and set your variables:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   cp .env.example .env
+   ```
 
-## Deploy on Vercel
+   Required variables are listed in [.env.example](.env.example). All keys in that file must be set for the app and Payload admin to work; optional ones can be left empty where noted.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Run the development server:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# luxury_villas
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) for the site and [http://localhost:3000/admin](http://localhost:3000/admin) for Payload CMS.
+
+## Scripts
+
+- `npm run dev` – Start development server
+- `npm run build` – Build for production
+- `npm run start` – Start production server
+- `npm run lint` – Run ESLint
+
+## Environment variables
+
+See [.env.example](.env.example) for the full list. Required for core functionality:
+
+- **Database:** `DATABASE_URL` (MongoDB)
+- **Payload:** `PAYLOAD_SECRET`, `RESEND_API_KEY`; `BLOB_READ_WRITE_TOKEN` for media uploads
+- **Stripe:** `NEXT_STRIPE_SECRET_KEY`, `NEXT_STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+- **Public URL:** `NEXT_PUBLIC_PAYLOAD_URL` (your deployed app URL, for webhooks)
+
+## Learn more
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Payload CMS](https://payloadcms.com/docs)
+- [Stripe Checkout](https://stripe.com/docs/payments/checkout)

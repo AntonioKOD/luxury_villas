@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -26,7 +25,6 @@ import {
 } from "@/components/ui/select";
 import { DatePicker } from "./date-range-picker";
 import type { DateRange } from "react-day-picker";
-import { getAvailability } from "@/actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -68,7 +66,6 @@ export default function BookingWidget({
     { month: string; price: number; priceId: string }[]
   >([]);
   const [unitPrice, setUnitPrice] = useState(0);
-  const [unitPriceId, setUnitPriceId] = useState("");
 
   const [guestName, setGuestName] = useState("");
   const [email, setEmail] = useState("");
@@ -78,41 +75,48 @@ export default function BookingWidget({
   const [selectionState, setSelectionState] = useState<
     "start" | "end" | "complete"
   >("start");
+  const [propertyLoadError, setPropertyLoadError] = useState<string | null>(null);
 
-  // Fetch unavailable date ranges
+  // Single fetch: property data (seasonalPrices + availability) from API
   useEffect(() => {
-    async function fetchAvailability() {
-      const result = await getAvailability(propertyId);
-      if (Array.isArray(result.availability)) {
-        setAvailability(
-          result.availability.map((u) => ({
-            from: new Date(u.from),
-            to: new Date(u.to),
-          }))
-        );
+    async function loadProperty() {
+      setPropertyLoadError(null);
+      try {
+        const res = await fetch(`/api/properties/${encodeURIComponent(propertyId)}`);
+        if (!res.ok) {
+          setPropertyLoadError("Could not load property details.");
+          setSeasonalPrices([]);
+          setAvailability([]);
+          return;
+        }
+        const prop = await res.json();
+        setSeasonalPrices(prop.seasonalPrices || []);
+        if (Array.isArray(prop.availability)) {
+          setAvailability(
+            prop.availability.map((u: { from: string; to: string }) => ({
+              from: new Date(u.from),
+              to: new Date(u.to),
+            }))
+          );
+        } else {
+          setAvailability([]);
+        }
+      } catch {
+        setPropertyLoadError("Could not load property details.");
+        setSeasonalPrices([]);
+        setAvailability([]);
       }
     }
-    fetchAvailability();
+    loadProperty();
   }, [propertyId]);
 
-  // Fetch seasonalPrices from your CMS
-  useEffect(() => {
-    async function loadPrices() {
-      const res = await fetch(`/api/properties/${propertyId}`);
-      const prop = await res.json();
-      setSeasonalPrices(prop.seasonalPrices || []);
-    }
-    loadPrices();
-  }, [propertyId]);
-
-  // Update unitPrice and unitPriceId when the check-in month changes
+  // Update unitPrice when the check-in month changes
   useEffect(() => {
     if (!date.from) return;
     const monthValue = (date.from.getMonth() + 1).toString();
     const season = seasonalPrices.find((p) => p.month === monthValue);
     if (season) {
       setUnitPrice(season.price);
-      setUnitPriceId(season.priceId);
     }
   }, [date.from, seasonalPrices]);
 
@@ -140,7 +144,6 @@ export default function BookingWidget({
       ? Math.ceil((date.to.getTime() - date.from.getTime()) / 86400000)
       : 0;
   const subtotal = unitPrice * nights;
-  const serviceFee = subtotal * 0.12;
   const cleaningFee = 50;
   const total = subtotal + cleaningFee;
 
@@ -217,6 +220,11 @@ export default function BookingWidget({
       </CardHeader>
 
       <CardContent className="p-0">
+        {propertyLoadError && (
+          <div className="mx-6 mt-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
+            {propertyLoadError} Pricing and availability may be incomplete.
+          </div>
+        )}
         <div className="p-6 space-y-6">
           {/* Guest Info */}
           <div className="space-y-4">
@@ -390,7 +398,8 @@ export default function BookingWidget({
             !date.to ||
             !guestName ||
             !email ||
-            isLoading
+            isLoading ||
+            !!propertyLoadError
           }
           onClick={handleBookNow}
         >

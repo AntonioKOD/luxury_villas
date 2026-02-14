@@ -6,8 +6,8 @@ import { Accounts } from './app/(payload)/collections/Accounts.ts'
 import { Properties } from './app/(payload)/collections/Properties.ts'
 import { Bookings } from './app/(payload)/collections/Bookings.ts'
 import { Media } from './app/(payload)/collections/Media.ts'
-import {vercelBlobStorage} from '@payloadcms/storage-vercel-blob'
-import {resendAdapter} from '@payloadcms/email-resend'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { resendAdapter } from '@payloadcms/email-resend'
 
 
 export default buildConfig({
