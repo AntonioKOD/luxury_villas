@@ -38,7 +38,7 @@
     "gsap": "^3.12.7",
     "lucide-react": "^0.484.0",
     "motion": "^12.6.2",
-    "next": "^15.2.3",
+    "next": "15.4.11",
     "payload": "^3.32.0",
     "react": "^19.0.0",
     "react-day-picker": "^9.6.4",
@@ -63,7 +63,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.2.3",
+    "eslint-config-next": "15.4.11",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
