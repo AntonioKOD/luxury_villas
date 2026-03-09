@@ -17,7 +17,7 @@ const links = [
 ]
 
 // Define paths that should always have the "scrolled" appearance
-const scrolledByDefaultPaths = ["/about", "/contact", "/login", "/properties", "/success"]
+const scrolledByDefaultPaths = ["/about", "/contact", "/login", "/properties"]
 
 // Fetch user data from the /me endpoint
 /*async function getUser() {

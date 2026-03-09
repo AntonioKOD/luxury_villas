@@ -160,11 +160,11 @@ export default function VillasPage() {
                   </Link>
 
                   <Link
-                    href={firstId ? `/properties/${firstId}/book-property` : "/properties"}
+                    href={firstId ? `/properties/${firstId}` : "/properties"}
                     className="sm:ml-auto w-full sm:w-auto inline-flex items-center justify-center relative overflow-hidden group rounded-full bg-[#3a7e8c] px-6 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-[#2c6270] hover:shadow-xl cursor-pointer border-0 no-underline"
                   >
                     <span className="relative z-10 flex items-center justify-center">
-                      Book Now
+                      View Details
                       <ChevronRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
                     </span>
                     <span className="absolute inset-0 bg-gradient-to-r from-[#3a7e8c] to-[#2c6270] opacity-0 transition-opacity group-hover:opacity-100" />
@@ -292,11 +292,11 @@ export default function VillasPage() {
                   </Link>
 
                   <Link
-                    href={secondId ? `/properties/${secondId}/book-property` : "/properties"}
+                    href={secondId ? `/properties/${secondId}` : "/properties"}
                     className="sm:ml-auto w-full sm:w-auto inline-flex items-center justify-center relative overflow-hidden group rounded-full bg-[#3a7e8c] px-6 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-[#2c6270] hover:shadow-xl cursor-pointer border-0 no-underline"
                   >
                     <span className="relative z-10 flex items-center justify-center">
-                      Book Now
+                      View Details
                       <ChevronRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
                     </span>
                     <span className="absolute inset-0 bg-gradient-to-r from-[#3a7e8c] to-[#2c6270] opacity-0 transition-opacity group-hover:opacity-100" />

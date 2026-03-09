@@ -355,15 +355,6 @@ export default function Villas() {
                                 </motion.span>
                               </Link>
 
-                              <Link href={`/properties/${propId}/book-property`}>
-                                <motion.span
-                                  whileHover={{ scale: 1.03 }}
-                                  whileTap={{ scale: 0.98 }}
-                                  className="w-full py-4 px-6 bg-secondary text-secondary-foreground rounded-xl flex items-center justify-center gap-2 shadow-sm hover:bg-secondary/90 transition-colors cursor-pointer text-center border-0 block"
-                                >
-                                  Book Now <ArrowRight className="h-4 w-4" />
-                                </motion.span>
-                              </Link>
                             </>
                           )}
                         </div>

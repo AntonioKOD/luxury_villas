@@ -4,7 +4,7 @@ import { getPropertyById } from '@/actions'
 const CACHE_CONTROL = 'public, s-maxage=60, stale-while-revalidate=120'
 
 /**
- * GET /api/properties/[id] - Returns a single property (uses cached list). For detail page, booking widget, images.
+ * GET /api/properties/[id] - Returns a single property (uses cached list). For detail page and images.
  */
 export async function GET(
   _request: Request,

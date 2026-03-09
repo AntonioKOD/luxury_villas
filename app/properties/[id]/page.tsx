@@ -136,12 +136,6 @@ export default function Property() {
                   {propertyDetails.location}
                 </Badge>
               </div>
-                <Link
-                  href={`/properties/${propertyId}/book-property`}
-                  className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-                >
-                  Book Now
-                </Link>
             </div>
           </motion.div>
         )}
@@ -410,28 +404,24 @@ export default function Property() {
             </Tabs>
           </div>
 
-          {/* Right Column: Booking Widget */}
+          {/* Right Column: Contact / Info */}
           <div className="lg:w-1/3 mt-8 lg:mt-0">
             <div className="sticky top-24">
               <div className="rounded-xl border overflow-hidden bg-card">
                 <div className="p-6">
-
                   <div className="flex items-center gap-1 mb-6">
                     <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
                     <span className="font-medium">{propertyDetails.rating}</span>
                     <span className="text-muted-foreground">({propertyDetails.reviewCount} reviews)</span>
                   </div>
-
-                 
-                    <Link
-                      href={`/properties/${propertyId}/book-property`}
-                      className="block w-full rounded-lg py-6 text-center font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                    >
-                      Book Now
-                    </Link>
+                  <Link
+                    href="/contact"
+                    className="block w-full rounded-lg py-4 text-center font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                  >
+                    Contact Us to Inquire
+                  </Link>
                 </div>
               </div>
-
               <div className="mt-6 p-6 rounded-xl border bg-card/50">
                 <h3 className="font-medium mb-3">Need assistance?</h3>
                 <div className="grid gap-3">
@@ -441,20 +431,6 @@ export default function Property() {
                   >
                     Contact Us
                   </Link>
-                </div>
-              </div>
-
-              <div className="mt-6 p-6 rounded-xl border bg-card/50">
-                <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                    <Calendar className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium mb-1">Instant Booking</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Secure your dates now with instant confirmation. Free cancellation up to 30 days before arrival.
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>

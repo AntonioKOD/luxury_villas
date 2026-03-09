@@ -141,7 +141,7 @@ export default function ContactPage() {
                       name="subject"
                       value={formState.subject}
                       onChange={handleChange}
-                      placeholder="Booking Inquiry"
+                      placeholder="Inquiry"
                       required
                     />
                   </div>
@@ -185,7 +185,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-foreground mb-1">Email Us</h3>
-                    <p className="text-muted-foreground mb-1">For bookings and inquiries:</p>
+                    <p className="text-muted-foreground mb-1">For inquiries:</p>
                     <a href="mailto:info@gjovanasvillas.com" className="text-primary hover:underline">
                       info@gjovanasvillas.com
                     </a>
