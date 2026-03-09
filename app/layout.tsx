@@ -27,6 +27,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Gjovana's Luxury Villas",
   description: "Luxury Villas in Kefalonia, Greece",
+  robots: { index: false, follow: true },
 };
 
 export default function RootLayout({
